@@ -5,14 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixl8 — a native PICO-8 player for Android</title>
     <meta name="description"
-          content="Pixl8 — a native PICO-8 player for Android. Made by CodeDreams BV." />
+          content="Play PICO-8 cartridges natively on your Android phone or retro handheld. Low-latency audio, gamepad-first controls, multicart support. Built by CodeDreams BV." />
     <meta name="theme-color" content="#000000" />
 
+    <!-- Open Graph — also used by Bluesky, LinkedIn, Slack, Mastodon etc.
+         for link-preview cards. The image is the rainbow SVG logo for now;
+         swap to a 1200×630 PNG card before launch for sharper rendering
+         on services that don't rasterise SVG. -->
     <meta property="og:title" content="Pixl8 — a native PICO-8 player for Android" />
-    <meta property="og:description" content="A native PICO-8 player for Android." />
+    <meta property="og:description" content="Play PICO-8 cartridges natively on your Android phone or retro handheld." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://macs75.github.io/pixl8/" />
-    <meta property="og:image" content="https://macs75.github.io/pixl8/assets/pixl8-logo.svg" />
+    <meta property="og:url" content="https://pixl8.dev/" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <!-- Canonical URL — disambiguates pixl8.dev vs pixl8.eu (301'd) vs
+         the macs75.github.io host so search engines treat pixl8.dev as
+         the authoritative version. -->
+    <link rel="canonical" href="https://pixl8.dev/" />
+
+    <!-- IndieWeb identity link. Bluesky and other rel-me-aware tools
+         use this to associate the site with the publisher's profile. -->
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
 
     <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
 
@@ -32,6 +46,34 @@
                 },
             },
         };
+    </script>
+
+    <!-- Schema.org structured data — gives Google rich-result data:
+         SoftwareApplication for Pixl8 itself (lets it show up as an app
+         when relevant), Organization for CodeDreams BV with sameAs back
+         to the social profile. Add an `offers` block referencing the
+         Google Play listing once the app is published. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Pixl8",
+        "description": "A native PICO-8 player for Android with low-latency audio, gamepad-first controls and multicart support.",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Android",
+        "url": "https://pixl8.dev/",
+        "image": "https://pixl8.dev/assets/pixl8-logo.svg",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "CodeDreams BV",
+            "url": "https://pixl8.dev/",
+            "sameAs": [
+                "https://bsky.app/profile/macs.eurosky.social",
+                "https://github.com/Macs75/pixl8"
+            ]
+        }
+    }
     </script>
 
     <style>
