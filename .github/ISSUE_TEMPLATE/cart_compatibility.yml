@@ -1,0 +1,84 @@
+name: Cart compatibility
+description: A specific PICO-8 cart doesn't render or play correctly in Pixl8.
+title: "[cart] "
+labels: ["cart-compat"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us track down cart-specific issues. Please include
+        a link to the cart's BBS page so we can reproduce against the same
+        version you're playing.
+
+  - type: input
+    id: cart-name
+    attributes:
+      label: Cart name
+      placeholder: e.g. Celeste Classic 2
+    validations:
+      required: true
+
+  - type: input
+    id: bbs-link
+    attributes:
+      label: BBS link to the cart
+      description: The Lexaloffle BBS URL if you have it (helps us grab the exact version you're running).
+      placeholder: https://www.lexaloffle.com/bbs/?tid=...
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What goes wrong in Pixl8?
+      description: Visual glitch, missing audio, controls unresponsive, crash, audio desync, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen instead?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: real-pico8
+    attributes:
+      label: Does the cart work in the real PICO-8 / pico-8-edu.com?
+      description: A quick comparison helps us tell engine bugs apart from cart bugs.
+      options:
+        - "Yes — works correctly there"
+        - "No — same problem in real PICO-8"
+        - "I don't have a way to compare"
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      placeholder: e.g. Pixel 8 Pro
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Pixl8 version
+      description: Shown in Settings, next to the title at the top of the screen.
+      placeholder: e.g. 1.0.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshot or video
+      description: A side-by-side capture of Pixl8 vs real PICO-8 is gold.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I've searched existing issues for this cart
+          required: true

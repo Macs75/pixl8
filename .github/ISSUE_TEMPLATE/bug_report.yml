@@ -1,0 +1,91 @@
+name: Bug report
+description: Crash, broken feature, or unexpected behaviour in Pixl8.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a report. Before submitting, please check the
+        [FAQ](https://pixl8.dev/faq.html) and search existing issues so we don't
+        end up with duplicates. The more reproducer detail you include, the
+        faster we can fix the problem.
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Pixl8 version
+      description: Shown in Settings, next to the title at the top of the screen.
+      placeholder: e.g. 1.0.3
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: Manufacturer + model. Retro handheld owners — please name the model.
+      placeholder: e.g. Anbernic RG Cube, Pixel 8 Pro, Samsung Galaxy S22
+    validations:
+      required: true
+
+  - type: input
+    id: android-version
+    attributes:
+      label: Android version
+      placeholder: e.g. Android 14
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Number each step. Pretend the reader has never opened the app before.
+      placeholder: |
+        1. Open Pixl8
+        2. Tap on cart "xyz" in the Library
+        3. Press X
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      placeholder: What did you expect to happen?
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      placeholder: What happened instead? Include any error messages or visible glitches.
+    validations:
+      required: true
+
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshot or short video
+      description: Drag-and-drop the file here. A short clip showing the bug is often the fastest path to a fix.
+
+  - type: textarea
+    id: logcat
+    attributes:
+      label: Logcat output (optional, very helpful)
+      description: |
+        With USB debugging on:
+        `adb logcat -s pixl8-engine pixl8-be pixl8-jni Pixl8 Pixl8Oboe Pixl8Audio`
+        Run that command in a terminal while reproducing the bug, then paste relevant lines here.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I've searched existing issues for duplicates
+          required: true
+        - label: I'm on the latest version available on Google Play
+          required: true

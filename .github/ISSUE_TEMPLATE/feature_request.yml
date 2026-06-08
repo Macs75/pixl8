@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a new feature or improvement to Pixl8.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for thinking about how Pixl8 could be better. Before filing,
+        please check the [FAQ](https://pixl8.dev/faq.html) and search existing
+        issues — your idea may already be on the table.
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: What would you like to see?
+      description: One or two paragraphs describing the feature.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why? What's the use case?
+      description: Who benefits and when does this matter? Concrete examples land best.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Have you seen this elsewhere?
+      description: Optional. Examples from other PICO-8 players, emulators, or apps help us
+                   understand the shape of what you're picturing.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I've searched existing issues for this request
+          required: true

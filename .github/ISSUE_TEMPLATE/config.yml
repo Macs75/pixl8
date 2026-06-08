@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Frequently asked questions
+    url: https://pixl8.dev/faq.html
+    about: Many common questions are answered here — please check before filing an issue.
+  - name: Pixl8 website
+    url: https://pixl8.dev
+    about: For private questions or commercial inquiries, contact us via the email link in the website footer.
