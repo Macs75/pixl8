@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use — Pixl8</title>
+    <meta name="description" content="Terms of use and licence for the Pixl8 Android application." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="index.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← Home</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Terms of Use</h1>
+        <p class="text-white/40 text-sm mt-2">Last updated: <span id="updated"></span></p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">1. Licence to use Pixl8</h2>
+        <p class="text-white/60 leading-relaxed">
+            Subject to these terms, CodeDreams BV grants you a personal, non-exclusive,
+            non-transferable, revocable licence to install and use Pixl8 on Android devices you
+            own or control, for personal, non-commercial use.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">2. What you can and can't do</h2>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40">
+            <li>Install Pixl8 on as many devices as your Google account allows.</li>
+            <li>Play any PICO-8 cartridge files you legally have access to.</li>
+            <li>Back up your own save data, screenshots and recorded scripts.</li>
+            <li>Do not reverse-engineer, decompile, or repackage the application binary.</li>
+            <li>Do not resell or sublicense the application.</li>
+            <li>Do not misrepresent Pixl8 as an official Lexaloffle product.</li>
+        </ul>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">3. In-app purchases</h2>
+        <p class="text-white/60 leading-relaxed">
+            The "Pro Features" unlock is a one-time, non-consumable in-app purchase processed by
+            Google Play Billing. The purchase entitles you to use the Pro-gated features (save
+            states, debugger, script recorder, and any future feature explicitly marked as
+            included) on any device signed into the same Google Play account.
+        </p>
+        <p class="text-white/60 leading-relaxed mt-3">
+            Refunds are handled by Google Play under
+            <a href="https://support.google.com/googleplay/answer/2479637"
+               class="text-white underline decoration-white/30 hover:decoration-white">Google's refund policy</a>.
+            We don't process payments directly and have no separate refund mechanism.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">4. Cart files and user content</h2>
+        <p class="text-white/60 leading-relaxed">
+            You are responsible for ensuring you have the right to use any PICO-8 cartridges, save
+            data, scripts, or other files you open with Pixl8. Carts published on the Lexaloffle
+            BBS each have their own licence; most are explicitly free to play but check the cart's
+            BBS page if you intend to redistribute.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">5. Trademarks</h2>
+        <p class="text-white/60 leading-relaxed">
+            PICO-8® and Lexaloffle® are trademarks of Lexaloffle Games LLP. Pixl8 is an
+            independent third-party application that plays cartridges published in the PICO-8
+            format; CodeDreams BV and Pixl8 are not affiliated with, endorsed by, or sponsored by
+            Lexaloffle.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">6. Disclaimer of warranty</h2>
+        <p class="text-white/60 leading-relaxed">
+            Pixl8 is provided "as is", without warranty of any kind, express or implied, including
+            but not limited to merchantability, fitness for a particular purpose and
+            non-infringement. We make no warranty that every PICO-8 cart will run correctly or
+            that the application will be free from errors or interruptions.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">7. Limitation of liability</h2>
+        <p class="text-white/60 leading-relaxed">
+            To the maximum extent permitted by law, CodeDreams BV shall not be liable for any
+            indirect, incidental, special or consequential damages, or for loss of data, arising
+            out of or in connection with your use of Pixl8. Where applicable law does not permit
+            such limitations, our liability is limited to the amount you paid for the Pro unlock
+            (if any) in the twelve months preceding the claim.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">8. Changes</h2>
+        <p class="text-white/60 leading-relaxed">
+            We may update these terms when the application's behaviour or commercial structure
+            changes. Material changes will be reflected in the Google Play release notes for the
+            version that introduces them.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">9. Governing law</h2>
+        <p class="text-white/60 leading-relaxed">
+            These terms are governed by the laws of Belgium, without regard to its
+            conflict-of-law provisions. Any dispute that cannot be resolved amicably shall be
+            subject to the exclusive jurisdiction of the courts of Brussels, Belgium.
+        </p>
+
+        <h2 class="text-xl font-semibold mt-12 mb-3">10. Contact</h2>
+        <p class="text-white/60 leading-relaxed">
+            <a class="em text-white underline decoration-white/30 hover:decoration-white"
+               href="#">our contact email</a>
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        document.getElementById("updated").textContent =
+            new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

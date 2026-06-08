@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ — Pixl8</title>
+    <meta name="description" content="Frequently asked questions about Pixl8, the native PICO-8 player for Android." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="index.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← Home</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">FAQ</h1>
+
+        <dl class="mt-12 space-y-10">
+
+            <div>
+                <dt class="text-lg font-semibold text-white">What is PICO-8?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    PICO-8 is a "fantasy console" — an imaginary 8-bit machine with
+                    deliberately tiny limits (a 128×128 screen, 16 colours, four
+                    sound channels) that people use to make and share small games.
+                    Over a decade in, the community around it has produced thousands
+                    of free, polished little titles spanning every genre.
+                    <a href="https://en.wikipedia.org/wiki/PICO-8"
+                       class="text-white underline decoration-white/30 hover:decoration-white">Wikipedia
+                    has a longer write-up</a> if you'd like more background.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">Where do I get carts?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    The PICO-8 community hosts thousands of free carts on the
+                    <a href="https://www.lexaloffle.com/bbs/?cat=7"
+                       class="text-white underline decoration-white/30 hover:decoration-white">Lexaloffle BBS</a>.
+                    Explore the community, find games you like, and download their cart
+                    files into a folder Pixl8 has access to. They'll show up in your
+                    library, ready to play. And don't forget to support the authors!
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">What's a cart?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    A "cart" is a single tiny file that holds a whole PICO-8 game — the
+                    code, the art, the sounds, the music, all in one place. The clever
+                    bit is that a cart usually looks like a small PNG image: open it in
+                    any image viewer and you'll see a label screen, but feed it to
+                    Pixl8 and it's a playable game. You'll see them as
+                    <code class="text-white/80">.p8.png</code> (image carts with a
+                    label) or sometimes plain <code class="text-white/80">.p8</code>
+                    (text-source version) — both work the same way in the library.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">How do I make my own game?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    Lexaloffle hosts a free in-browser editor at
+                    <a href="https://www.pico-8-edu.com/"
+                       class="text-white underline decoration-white/30 hover:decoration-white">pico-8-edu.com</a>
+                    — perfect for trying things out without installing anything.
+                    Once you're hooked, the proper way to develop locally is to
+                    <a href="https://www.lexaloffle.com/pico-8.php"
+                       class="text-white underline decoration-white/30 hover:decoration-white">buy a Lexaloffle
+                    licence</a> and download the real PICO-8 tools.
+                </dd>
+                <dd class="mt-3 text-white/60 leading-relaxed">
+                    Great places to learn:
+                </dd>
+                <ul class="mt-2 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40">
+                    <li>
+                        <a href="https://www.youtube.com/c/LazyDevs"
+                           class="text-white underline decoration-white/30 hover:decoration-white">Lazy Devs Academy</a>
+                        — long-form tutorial series on YouTube.
+                    </li>
+                    <li>
+                        <a href="https://nerdyteachers.com/"
+                           class="text-white underline decoration-white/30 hover:decoration-white">Nerdy Teachers</a>
+                        — written guides and classroom-friendly walkthroughs.
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">Is the engine official?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    No. Pixl8 ships an independent re-implementation of the PICO-8
+                    runtime designed for compatibility with carts published on the
+                    BBS. Lexaloffle and the PICO-8 trademark are owned by their
+                    respective holders; Pixl8 is not affiliated with or endorsed by
+                    Lexaloffle.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">What does Pro unlock?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    Save states (10 slots per cart), the in-app input script
+                    recorder &amp; playback, the source-level debugger pane, and
+                    the one-time purchase removes any future feature gating.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">Does it work on retro handhelds?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    Yes. Pixl8 adapts to any screen shape — 4:3, 16:9, 1:1,
+                    whatever your device runs.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">What does Pixl8 collect about me?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    See the full
+                    <a href="privacy.html"
+                       class="text-white underline decoration-white/30 hover:decoration-white">privacy policy</a>.
+                    Your cart files and save data never leave your device.
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-lg font-semibold text-white">I found a bug. Where do I report it?</dt>
+                <dd class="mt-2 text-white/60 leading-relaxed">
+                    Open an issue on
+                    <a href="https://github.com/Macs75/pixl8/issues"
+                       class="text-white underline decoration-white/30 hover:decoration-white">GitHub</a>
+                    or email
+                    <a class="em text-white underline decoration-white/30 hover:decoration-white"
+                       href="#">our contact email</a>.
+                </dd>
+            </div>
+        </dl>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale. The
+        // address is stored as reversed base64 so HTML-regex scrapers
+        // never see a plain "@codedreams.be" pattern in the source.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

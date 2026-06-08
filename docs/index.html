@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixl8 — a native PICO-8 player for Android</title>
+    <meta name="description"
+          content="Pixl8 — a native PICO-8 player for Android. Made by CodeDreams BV." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — a native PICO-8 player for Android" />
+    <meta property="og:description" content="A native PICO-8 player for Android." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://macs75.github.io/pixl8/" />
+    <meta property="og:image" content="https://macs75.github.io/pixl8/assets/pixl8-logo.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+
+        /* Per-pixel reveal for the inlined logo SVG. Each shape inside
+         * the logo starts invisible and small, then pops in via the
+         * cubic-bezier overshoot for a brief "settle" at the end.
+         * The JS at the bottom of the page sorts pixels by their
+         * bounding-box Y and stamps a staggered animation-delay so
+         * the reveal reads top-to-bottom — feels like a pixel-art
+         * sprite being built up row by row.
+         *
+         * transform-box: fill-box anchors the scale transform to each
+         * element's own bbox; without it SVG scales relative to the
+         * root viewport and the animation looks wrong. */
+        @keyframes pixl8-pop {
+            from { opacity: 0; transform: scale(0.4); }
+            to   { opacity: 1; transform: scale(1);   }
+        }
+        .logo-wrap .px {
+            opacity: 0;
+            transform-origin: center;
+            transform-box: fill-box;
+            animation: pixl8-pop 0.45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+        }
+
+        /* Subtle wordmark / tagline fade-in once the logo is mostly
+         * settled. Kept conservative so it doesn't compete with the
+         * logo for attention. */
+        @keyframes word-fade {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .word-in   { opacity: 0; animation: word-fade 0.6s ease-out forwards; }
+        .word-in-1 { animation-delay: 1.15s; }
+        .word-in-2 { animation-delay: 1.30s; }
+        .word-in-3 { animation-delay: 1.45s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo-wrap .px,
+            .word-in {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Single-screen hero. The page is intentionally one column, centred,
+         with the rainbow logo doing the visual work and everything else
+         kept to a single sentence + two links. -->
+    <main class="flex-1 flex items-center justify-center px-6 py-20">
+        <div class="text-center max-w-xl">
+
+            <!-- Inlined SVG logo so each pixel can be addressed by CSS for
+                 the pop-in reveal. The background <rect> is left without
+                 the .px class so it sits there from frame zero (otherwise
+                 you'd see the pixels appearing on a white page, not a
+                 black "console" screen). -->
+            <div role="img" aria-label="Pixl8 logo"
+                 class="logo-wrap w-40 h-40 sm:w-52 sm:h-52 mx-auto mb-10 select-none">
+                <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg"
+                     class="w-full h-full [image-rendering:pixelated]">
+                    <rect width="108" height="108" fill="#000000"/>
+                    <!-- P (rainbow): bevel polygons + the flat pixel rectangles -->
+                    <polygon class="px" points="22,10 32,10 36,6 26,6" fill="#FF3F79"/>
+                    <polygon class="px" points="32,10 42,10 46,6 36,6" fill="#FF3F79"/>
+                    <polygon class="px" points="42,10 52,10 56,6 46,6" fill="#FF3F79"/>
+                    <polygon class="px" points="52,10 62,10 66,6 56,6" fill="#FF3F79"/>
+                    <polygon class="px" points="62,10 72,10 76,6 66,6" fill="#FF3F79"/>
+                    <polygon class="px" points="72,10 76,6 76,16 72,20" fill="#8C002A"/>
+                    <polygon class="px" points="42,20 46,16 46,26 42,30" fill="#8C3B13"/>
+                    <polygon class="px" points="72,20 82,20 86,16 76,16" fill="#FF905A"/>
+                    <polygon class="px" points="82,20 86,16 86,26 82,30" fill="#8C3B13"/>
+                    <polygon class="px" points="42,30 46,26 46,36 42,40" fill="#8C5900"/>
+                    <polygon class="px" points="82,30 86,26 86,36 82,40" fill="#8C5900"/>
+                    <polygon class="px" points="42,40 46,36 46,46 42,50" fill="#8C8C15"/>
+                    <polygon class="px" points="82,40 86,36 86,46 82,50" fill="#8C8C15"/>
+                    <polygon class="px" points="42,50 52,50 56,46 46,46" fill="#BDED62"/>
+                    <polygon class="px" points="52,50 62,50 66,46 56,46" fill="#BDED62"/>
+                    <polygon class="px" points="72,50 76,46 76,56 72,60" fill="#5C7F19"/>
+                    <polygon class="px" points="42,60 46,56 46,66 42,70" fill="#007F2F"/>
+                    <polygon class="px" points="42,70 46,66 46,76 42,80" fill="#006324"/>
+                    <polygon class="px" points="42,80 46,76 46,86 42,90" fill="#165F8C"/>
+                    <rect class="px" x="22" y="10" width="10" height="10" fill="#FF004D"/>
+                    <rect class="px" x="32" y="10" width="10" height="10" fill="#FF004D"/>
+                    <rect class="px" x="42" y="10" width="10" height="10" fill="#FF004D"/>
+                    <rect class="px" x="52" y="10" width="10" height="10" fill="#FF004D"/>
+                    <rect class="px" x="62" y="10" width="10" height="10" fill="#FF004D"/>
+                    <rect class="px" x="22" y="20" width="10" height="10" fill="#FF6C24"/>
+                    <rect class="px" x="32" y="20" width="10" height="10" fill="#FF6C24"/>
+                    <rect class="px" x="62" y="20" width="10" height="10" fill="#FF6C24"/>
+                    <rect class="px" x="72" y="20" width="10" height="10" fill="#FF6C24"/>
+                    <rect class="px" x="22" y="30" width="10" height="10" fill="#FFA300"/>
+                    <rect class="px" x="32" y="30" width="10" height="10" fill="#FFA300"/>
+                    <rect class="px" x="62" y="30" width="10" height="10" fill="#FFA300"/>
+                    <rect class="px" x="72" y="30" width="10" height="10" fill="#FFA300"/>
+                    <rect class="px" x="22" y="40" width="10" height="10" fill="#FFFF27"/>
+                    <rect class="px" x="32" y="40" width="10" height="10" fill="#FFFF27"/>
+                    <rect class="px" x="62" y="40" width="10" height="10" fill="#FFFF27"/>
+                    <rect class="px" x="72" y="40" width="10" height="10" fill="#FFFF27"/>
+                    <rect class="px" x="22" y="50" width="10" height="10" fill="#A8E72E"/>
+                    <rect class="px" x="32" y="50" width="10" height="10" fill="#A8E72E"/>
+                    <rect class="px" x="42" y="50" width="10" height="10" fill="#A8E72E"/>
+                    <rect class="px" x="52" y="50" width="10" height="10" fill="#A8E72E"/>
+                    <rect class="px" x="62" y="50" width="10" height="10" fill="#A8E72E"/>
+                    <rect class="px" x="22" y="60" width="10" height="10" fill="#00E756"/>
+                    <rect class="px" x="32" y="60" width="10" height="10" fill="#00E756"/>
+                    <rect class="px" x="22" y="70" width="10" height="10" fill="#00B543"/>
+                    <rect class="px" x="32" y="70" width="10" height="10" fill="#00B543"/>
+                    <rect class="px" x="22" y="80" width="10" height="10" fill="#29ADFF"/>
+                    <rect class="px" x="32" y="80" width="10" height="10" fill="#29ADFF"/>
+                    <!-- 8 (white): bevel polygons + flat rectangles -->
+                    <polygon class="px" points="58,60 66,60 70,56 62,56" fill="#FFF4ED"/>
+                    <polygon class="px" points="66,60 74,60 78,56 70,56" fill="#FFF4ED"/>
+                    <polygon class="px" points="74,60 82,60 86,56 78,56" fill="#FFF4ED"/>
+                    <polygon class="px" points="82,60 86,56 86,64 82,68" fill="#8C847F"/>
+                    <polygon class="px" points="66,68 70,64 70,72 66,76" fill="#8C847F"/>
+                    <polygon class="px" points="82,68 86,64 86,72 82,76" fill="#8C847F"/>
+                    <polygon class="px" points="66,76 74,76 78,72 70,72" fill="#FFF4ED"/>
+                    <polygon class="px" points="82,76 86,72 86,80 82,84" fill="#8C847F"/>
+                    <polygon class="px" points="66,84 70,80 70,88 66,92" fill="#8C847F"/>
+                    <polygon class="px" points="82,84 86,80 86,88 82,92" fill="#8C847F"/>
+                    <polygon class="px" points="66,92 74,92 78,88 70,88" fill="#FFF4ED"/>
+                    <polygon class="px" points="82,92 86,88 86,96 82,100" fill="#8C847F"/>
+                    <rect class="px" x="58" y="60" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="66" y="60" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="74" y="60" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="58" y="68" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="74" y="68" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="58" y="76" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="66" y="76" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="74" y="76" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="58" y="84" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="74" y="84" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="58" y="92" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="66" y="92" width="8" height="8" fill="#FFF1E8"/>
+                    <rect class="px" x="74" y="92" width="8" height="8" fill="#FFF1E8"/>
+                </svg>
+            </div>
+
+            <h1 class="word-in word-in-1 text-5xl sm:text-6xl font-bold tracking-tight">Pixl8</h1>
+
+            <p class="word-in word-in-2 mt-6 text-base sm:text-lg text-white/60 leading-relaxed">
+                A native PICO-8 player for Android.
+            </p>
+
+            <!-- Two minimal action buttons. Hover lifts opacity rather than
+                 swapping colours, so the rainbow logo stays the only loud
+                 thing on the page. -->
+            <div class="word-in word-in-3 mt-10 flex flex-wrap items-center justify-center gap-3">
+                <a href="faq.html"
+                   class="inline-flex items-center justify-center px-5 py-2.5
+                          border border-white/20 text-white/80
+                          hover:border-white/50 hover:text-white
+                          transition-colors text-sm">
+                    FAQ
+                </a>
+                <a href="https://github.com/Macs75/pixl8/issues"
+                   class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5
+                          border border-white/20 text-white/80
+                          hover:border-white/50 hover:text-white
+                          transition-colors text-sm">
+                    Report an issue
+                    <span aria-hidden="true" class="text-white/40">↗</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Compact footer: one line, single small "not affiliated" disclaimer. -->
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Logo intro: stagger each pixel's animation-delay by its
+        // bounding-box Y position, so the reveal reads top-to-bottom
+        // like a sprite being painted row by row. The CSS keyframe is
+        // already on .px — we only have to seed the per-element delay.
+        // Wrapped in try/catch around getBBox to be safe on browsers
+        // that haven't laid out the SVG by the time this runs (rare).
+        (function () {
+            var pixels = Array.from(document.querySelectorAll('.logo-wrap .px'));
+            // Sort by Y. Polygons / rects have different ways to read
+            // their starting Y; getBBox().y gives a uniform answer.
+            pixels.sort(function (a, b) {
+                try { return a.getBBox().y - b.getBBox().y; }
+                catch (_) { return 0; }
+            });
+            // 14 ms per pixel × ~72 pixels ≈ 1.0 s for the full reveal.
+            // Pleasant pace; doesn't make the visitor wait too long
+            // before the wordmark + tagline finish fading in (see
+            // .word-in-* delays in the <style> block).
+            pixels.forEach(function (el, i) {
+                el.style.animationDelay = (i * 14) + 'ms';
+            });
+        })();
+
+        // Email obfuscation: the address is stored reversed and base64
+        // encoded so simple HTML-regex harvesters don't see "pixl8@…"
+        // anywhere in the source. JS reverses + atobs at runtime and
+        // fills every `<a class="em">` with both the mailto href and
+        // visible text. Not unbreakable — but stops the cheap scrapers
+        // responsible for most spam.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
