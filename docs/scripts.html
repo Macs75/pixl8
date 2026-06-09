@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recording and playing input scripts — Pixl8</title>
+    <meta name="description"
+          content="How to record button presses to a .p8.script file, play them back, and edit the script syntax used by Pixl8." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Input scripts" />
+    <meta property="og:description" content="How to record, play back, and edit Pixl8 input scripts." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/scripts.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/scripts.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        pre        { white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Recording and playing input scripts</h1>
+        <p class="text-white/40 text-sm mt-2">
+            Capture button presses to a text file, replay them deterministically.
+            <span class="inline-block ml-1 px-1.5 py-0.5 text-[10px] tracking-wider border border-white/20 align-middle">PRO</span>
+        </p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 can record everything you press while playing a cart to
+            a plain-text <code class="text-white/80">.p8.script</code>
+            file, then play that file back later to reproduce the exact
+            same run frame-for-frame. The script format is human-readable,
+            so you can also write or edit one by hand — useful for speedrun
+            verification, screenshot pipelines, repro carts for engine
+            bugs, or anything that benefits from deterministic input.
+            Recording and playback are part of the Pro unlock.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Recording a script</h2>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Start the cart you want to record.</li>
+            <li>Open the pause menu and pick
+            <span class="text-white/80">Record inputs</span>. A small
+            overlay confirms the recording has started.</li>
+            <li>Play normally. Every button press and release is captured
+            against the cart's frame counter.</li>
+            <li>To finish, open the pause menu again and pick
+            <span class="text-white/80">Stop recording</span>. The file
+            is written to Pixl8's <code class="text-white/80">scripts/</code>
+            folder as
+            <code class="text-white/80">&lt;cartname&gt;.p8.script</code>.</li>
+        </ol>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            Only one recording is kept per cart — recording again overwrites
+            the previous file. Back up the old one first if you want to
+            keep it.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Playing a script back</h2>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Start the cart that the recording was made for.</li>
+            <li>Open the pause menu and pick
+            <span class="text-white/80">Playback recording</span>.</li>
+            <li>The cart resumes with the script driving inputs.</li>
+        </ol>
+        <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+            <p>
+                <span class="text-white/80">Keep your hands off the
+                controls.</span> Physical input isn't blocked during
+                playback — anything you press is merged with the script's
+                events and gets fed to the cart on top of them. A stray
+                tap can push the run off-course and ruin the rest of the
+                playback. If you need to interrupt, open the pause menu.
+            </p>
+        </div>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            Playback is fully deterministic only if nothing else changed
+            between the recording and the playback — the same cart file,
+            the same starting state, and no extra input from the player.
+            Carts that read the wall clock or use
+            <code class="text-white/80">rnd()</code> seeded from time will
+            diverge.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Editing a script</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Pick <span class="text-white/80">Edit recording</span> from
+            the pause menu to open the script for the current cart in a
+            built-in text editor. Save when you're done. You can also pull
+            the file out via <span class="text-white/80">Settings → Backup</span>
+            and edit it on a computer if that's easier.
+        </p>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            One handy aid for editing: turn on
+            <span class="text-white/80">Settings → Show frame counter</span>.
+            That puts the current frame number in the upper-left whenever
+            the cart is paused, so you can find the exact frame where
+            something happened and edit events at that line.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Script syntax</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            A <code class="text-white/80">.p8.script</code> file is plain
+            text. Each non-blank line is one event group:
+        </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">&lt;frame&gt;   &lt;action&gt;  [&lt;action&gt; ...]   # optional comment</pre>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            The frame number must be non-decreasing line-to-line. Multiple
+            actions on the same line all happen at that frame. Anything
+            after a <code class="text-white/80">#</code> is a comment.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Actions</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">+left  +right  +up  +down  +o  +x   press a button
+-left  -right  -up  -down  -o  -x   release a button
+screenshot [name]                   capture the cart's framebuffer
+save                                quick-save to slot 0
+load                                quick-load from slot 0
+pause                               pause the cart at this frame</pre>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            <code class="text-white/80">o</code> and
+            <code class="text-white/80">x</code> are PICO-8's two action
+            buttons (the round and cross faces of a gamepad). Any
+            unrecognised token is ignored, so future events can be added
+            without breaking older versions.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Screenshot filenames</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            Without a name, screenshots get a default like
+            <code class="text-white/80">screenshot_&lt;frame&gt;.png</code>.
+            If you pass a name it must follow these rules — Pixl8 rejects
+            the event otherwise:
+        </p>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>no slashes or path separators,</li>
+            <li>no leading dot,</li>
+            <li>no control characters,</li>
+            <li>255 characters or fewer.</li>
+        </ul>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            Captured screenshots are sorted by cart under
+            <span class="text-white/80">Settings → Manage screenshots</span>
+            so you can browse them after playback.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Example</h2>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3"># celeste.p8.script — sample run
+0     +x                    # press jump on frame 0
+3     -x                    # let go three frames later
+60    +right                # start running right at one second
+120   +x                    # jump
+124   -x                    # release jump
+180   -right                # stop running
+240   screenshot pico_dash  # grab a screenshot at frame 240
+600   pause                 # pause at frame 600 for inspection</pre>
+
+        <h2 class="mt-14 text-2xl font-semibold">Backing up and sharing scripts</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Scripts live in the <code class="text-white/80">scripts/</code>
+            folder inside Pixl8's data dir, and are included in
+            <span class="text-white/80">Settings → Backup &amp; Restore</span>
+            ZIP exports. To share a single recording, you can pull just
+            the matching <code class="text-white/80">.p8.script</code>
+            file out of the ZIP and send it to whoever needs to replay it.
+        </p>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            Found a quirk in playback or want a new event type? Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a> with a sample script and the cart it targets.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

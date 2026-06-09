@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using the debugger — Pixl8</title>
+    <meta name="description"
+          content="How to open Pixl8's source-level debugger, navigate the dual-pane layout, and use the step, breakpoint, and inspection commands." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Using the debugger" />
+    <meta property="og:description" content="How to use the Pixl8 source-level debugger for PICO-8 carts." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/debugger.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/debugger.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        pre        { white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Using the debugger</h1>
+        <p class="text-white/40 text-sm mt-2">
+            Source-level debugger for PICO-8 carts.
+            <span class="inline-block ml-1 px-1.5 py-0.5 text-[10px] tracking-wider border border-white/20 align-middle">PRO</span>
+        </p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 ships a real source-level debugger that runs alongside
+            the cart: step through Lua a line or a statement at a time,
+            set breakpoints, inspect variables and locals, evaluate
+            expressions in the running coroutine, and read a colourised
+            view of the cart's source. The debugger is part of the Pro
+            unlock.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Opening the debugger</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            While the cart is running:
+        </p>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Open the pause menu.</li>
+            <li>Pick <span class="text-white/80">Exit to console</span> to drop
+            into the Pixl8 shell.</li>
+            <li>Type <code class="text-white/80">debug</code> and press
+            <span class="text-white/80">Enter</span>. The cart pauses on
+            the next Lua line it executes, and the screen splits to show
+            the debug pane.</li>
+        </ol>
+
+        <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+            <p>
+                <span class="text-white/80">Hardware-keyboard requirement
+                on Android.</span> The debugger console is keyboard-only —
+                Pixl8 doesn't show a soft keyboard for it because most
+                debugging needs unusual keys (Ctrl, arrows, page-up/down)
+                that don't fit on a mobile IME. Connect a Bluetooth or USB
+                keyboard before you reach for it.
+            </p>
+        </div>
+
+        <h2 class="mt-14 text-2xl font-semibold">The dual-pane layout</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Once the debugger is active the surface splits in two — the
+            cart's 128×128 framebuffer on one side, the debug pane (256×256)
+            on the other. The debug pane shows:
+        </p>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>A colourised view of the cart's source code, with the
+            current line highlighted and breakpoints marked.</li>
+            <li>A prompt line at the bottom for typing commands.</li>
+            <li>Output from <code class="text-white/80">print</code>,
+            <code class="text-white/80">locals</code>,
+            <code class="text-white/80">bt</code>, etc.</li>
+        </ul>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            Syntax highlighting follows the VS Code <em>Dark Modern</em>
+            scheme: keywords in purple, strings in orange, numbers in green,
+            built-in PICO-8 calls in bright green, with rainbow brackets to
+            help track nesting on dense expressions.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Put the debug pane on a separate screen</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            If your phone is plugged into an HDMI display, Samsung DeX, or
+            casting to a monitor, you can keep the cart full-size on the
+            phone and route the debug pane to the external display
+            instead. Toggle this in <span class="text-white/80">Settings →
+            Debug on external display</span> before opening the debugger.
+            The option is only enabled when Android reports a secondary
+            display attached.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Commands</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Type any of these at the debugger prompt. Most have a short
+            and long form — both work. Pressing <span class="text-white/80">Enter</span>
+            on an empty line repeats the previous command, which is the
+            fastest way to step through code.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Stepping</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">s, step [n]      step into — n lines (default 1)
+si               step a single statement (sub-line)
+n, next [n]      step over — runs called functions to return
+c, cont [n]      continue, stopping at the n-th breakpoint hit</pre>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Breakpoints</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">b &lt;n&gt;            set a breakpoint at line n
+d &lt;n&gt;            delete breakpoint at line n
+bl               list all active breakpoints</pre>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Code view</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">l, list [n]      jump the source view to line n
+/&lt;text&gt;          search forward for &lt;text&gt; in the source</pre>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Inspect state</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">p, print &lt;expr&gt;  evaluate &lt;expr&gt; against the running coroutine
+|, lua &lt;code&gt;    execute arbitrary lua in the cart's environment
+locals           show the local variables in the current frame
+bt, backtrace    print the call stack with line numbers</pre>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Leaving</h3>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">q, quit          exit the debugger and resume the cart normally</pre>
+
+        <h2 class="mt-14 text-2xl font-semibold">Keyboard shortcuts</h2>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li><span class="text-white/80">Enter</span> on an empty prompt
+            repeats the previous command.</li>
+            <li><span class="text-white/80">↑ / ↓</span> walks back and
+            forward through the last commands you typed — a 32-slot
+            history. Press <span class="text-white/80">Enter</span> to
+            re-run, or edit before sending.</li>
+            <li><span class="text-white/80">Page Up / Page Down</span>
+            scrolls the source view a screen at a time.</li>
+            <li><span class="text-white/80">Ctrl + ↑ / ↓</span> scrolls one
+            line.</li>
+            <li><span class="text-white/80">← / →</span> on an empty prompt
+            scrolls the source horizontally (useful for long lines).</li>
+        </ul>
+
+        <h2 class="mt-14 text-2xl font-semibold">Tips</h2>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                <code class="text-white/80">si</code> is for stepping
+                inside a single line that has several statements separated
+                by <code class="text-white/80">;</code> or multiple
+                expressions in a chain.
+                <code class="text-white/80">s</code> moves a whole line at
+                a time, which is usually what you want.
+            </li>
+            <li>
+                <code class="text-white/80">p</code> reads any Lua
+                expression — globals, locals, table fields, function
+                calls. It's the quickest way to confirm a value without
+                editing the cart.
+            </li>
+            <li>
+                <code class="text-white/80">lua</code> can be used to
+                <em>change</em> state — assign a variable, force a flag,
+                spawn an entity — and the cart picks it up when you
+                resume.
+            </li>
+            <li>
+                Breakpoints persist for the cart while Pixl8 is open. They
+                clear when you load a different cart or reboot the engine.
+            </li>
+        </ul>
+
+        <h2 class="mt-14 text-2xl font-semibold">Limitations</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The debugger steps and breakpoints are tied to the source
+            <em>lines</em> stored in the cart. Many published PICO-8 carts
+            are heavily minified before release — whitespace stripped,
+            identifiers shortened to single letters, multiple statements
+            crammed onto each line — to squeeze under the token / char
+            limits. On those carts, the experience suffers in two ways:
+        </p>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                A single source line might hold dozens of statements, so
+                <span class="text-white/80">step</span> can move much
+                further per press than feels intuitive, and
+                <span class="text-white/80">si</span> may not break exactly
+                where you'd expect.
+            </li>
+            <li>
+                Short, machine-generated names
+                (<code class="text-white/80">a</code>,
+                <code class="text-white/80">_1</code>,
+                <code class="text-white/80">f0</code>) make
+                <span class="text-white/80">locals</span> and
+                <span class="text-white/80">print</span> output very hard
+                to read.
+            </li>
+        </ul>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            If you're debugging your own cart, work against the
+            pre-minify source — keep the readable version around and
+            point Pixl8 at that one while you're hunting a bug. Save
+            minification for the release build only. If you're debugging
+            someone else's cart, an un-minified source is often available
+            on the cart's BBS thread; if not, the debugger will still
+            work, just with less precision.
+        </p>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            Found a bug in the debugger or want a feature added? Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a>.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

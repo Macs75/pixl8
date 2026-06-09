@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setting up multicart games — Pixl8</title>
+    <meta name="description"
+          content="How to set up PICO-8 multicart games so Pixl8 can find every cart file." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Multicart setup guide" />
+    <meta property="og:description" content="How to set up PICO-8 multicart games so Pixl8 can find every cart file." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/multicarts.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/multicarts.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        pre        { white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Setting up multicart games</h1>
+        <p class="text-white/40 text-sm mt-2">For multi-file PICO-8 games where you provide the cart files yourself</p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Most PICO-8 games fit comfortably inside a single cart, but a
+            handful are larger and ship as several cart files that load
+            each other at runtime. There's usually one "main" cart you
+            launch — the one with the title screen — and one or more
+            sub-carts the game switches to as you progress.
+        </p>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            For these games to work in Pixl8, every cart file has to be
+            present and reachable. This page covers where to put them.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Step 1 — figure out which carts you need</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Some BBS pages list every cart file in one place; others only
+            show the main cart and leave you to discover the rest. Three
+            ways to find them all:
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">A. Check the author's itch.io page</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            A lot of multicart authors mirror their game on
+            <a href="https://itch.io/" class="text-white underline decoration-white/30 hover:decoration-white">itch.io</a>
+            and offer a ready-made offline bundle with every cart already
+            included — usually a single ZIP that just unpacks straight
+            into a folder. Scroll the BBS thread or the cart description
+            for an itch.io link; if one exists, this is the easiest path
+            by far. You skip the discovery work entirely.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">B. Read the main cart's code</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            Open the main cart in any PICO-8 editor (or just a text editor
+            for plain <code class="text-white/80">.p8</code> files), and
+            search for <code class="text-white/80">load(</code>. Every
+            sub-cart the game uses appears as a literal filename inside one
+            of those calls. Write the names down and grab each from the
+            BBS.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">C. Let Pixl8 tell you</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            The path of least effort: just drop the main cart into Pixl8
+            and run it. When the game tries to load a sub-cart that isn't
+            there, Pixl8 pauses with a prompt naming the exact filename it
+            needs. Note it down, fetch it from the BBS, drop it in, and
+            try again. Repeat through the game and you'll have collected
+            every sub-cart by the end without ever opening any code.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Step 2 — download the carts</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Download every file into the same folder.
+            <span class="text-white/80">Don't rename them.</span> PICO-8
+            looks the sub-carts up by their exact filename (including any
+            <code class="text-white/80">..._2.p8.png</code>,
+            <code class="text-white/80">..._3.p8.png</code> version
+            suffix), so renaming will stop the game from finding its own
+            pieces.
+        </p>
+
+        <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+            <p>
+                <span class="text-white/80">Shortcut if you own the original
+                PICO-8.</span> Run the game in the desktop PICO-8 (either by
+                downloading the main cart from the BBS, or by browsing to
+                it through <span class="text-white/80">SPLORE</span>) and
+                just play. As the game progresses through chapters, PICO-8
+                fetches each sub-cart from the BBS on demand and caches it
+                locally. Once you've reached the end (or far enough to have
+                triggered every load), every cart file is sitting in your
+                PICO-8 BBS cache — typically
+                <code class="text-white/80">~/.lexaloffle/pico-8/bbs/carts/</code>
+                on Linux and macOS, or
+                <code class="text-white/80">%APPDATA%\pico-8\bbs\carts\</code>
+                on Windows. Copy that whole pile over to your Android
+                device and skip the file-by-file hunt on the BBS. This also
+                solves Step 1 by itself — anything PICO-8 successfully
+                cached is, by definition, a cart the game needs.
+            </p>
+        </div>
+
+        <h2 class="mt-14 text-2xl font-semibold">Step 3 — choose a layout</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Pixl8 looks for sub-carts in two places — either works, but
+            one is much cleaner in practice.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Option A — flat (works, but messy)</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            Drop every cart file straight into the same folder. Pixl8
+            finds them because they're sitting next to the main cart.
+        </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">my_carts/
+├── game.p8.png          ← launch this one
+├── game_2.p8.png
+├── game_3.p8.png
+└── game_4.p8.png</pre>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The downside: every sub-cart shows up as its own tile in your
+            Pixl8 library. Tapping one of them launches it standalone,
+            which usually doesn't work — sub-carts expect to be loaded
+            mid-game by the main cart and won't have the state they need
+            when started from scratch. You'll see broken-looking entries
+            sitting next to the real one.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Option B — <code class="text-xl">.multicarts</code> subfolder (recommended)</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            Create a folder called <code class="text-white/80">.multicarts</code>
+            right next to the main cart, and move every sub-cart into it.
+            Pixl8 still finds them when the game asks — but
+            <span class="text-white/80">it skips the folder when building
+            your library list</span>, so only the main cart shows up as
+            a launchable tile. No broken duplicates, no clutter, and the
+            game runs exactly the same as in Option A.
+        </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">my_carts/
+├── game.p8.png          ← launch this one
+└── .multicarts/
+    ├── game_2.p8.png
+    ├── game_3.p8.png
+    └── game_4.p8.png</pre>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            The leading dot is deliberate — it's what tells Pixl8 (and
+            most file managers) to treat the folder as hidden housekeeping
+            rather than user-visible content.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Notes for Android file managers</h2>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                Most file managers hide folders that start with a dot.
+                In <span class="text-white/80">Files by Google</span>,
+                <span class="text-white/80">Material Files</span>, and
+                <span class="text-white/80">Solid Explorer</span>, look in
+                the menu or settings for a <em>Show hidden files</em>
+                toggle. You'll need it on to see and create
+                <code class="text-white/80">.multicarts</code>.
+            </li>
+            <li>
+                When you create the folder, type the name <em>with</em>
+                the leading dot — <code class="text-white/80">.multicarts</code> —
+                exactly that. Capitalisation matters on most Android
+                storage roots.
+            </li>
+            <li>
+                If you copy the folder over from a computer using a cable,
+                the dot is preserved automatically — you don't have to
+                fiddle with anything on the phone side.
+            </li>
+        </ul>
+
+        <h2 class="mt-14 text-2xl font-semibold">Troubleshooting</h2>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                <span class="text-white/80">The game crashes or shows a
+                "missing cart" message mid-play</span> — a sub-cart isn't
+                where Pixl8 expects it. Re-check that every file from the
+                BBS download is present, named exactly as downloaded, and
+                either next to the main cart or inside
+                <code class="text-white/80">.multicarts/</code>.
+            </li>
+            <li>
+                <span class="text-white/80">The game launches but skips a
+                later chapter</span> — usually a renamed file. PICO-8
+                uses the version suffix in the filename to pick the right
+                cart; restore the original names from the BBS download.
+            </li>
+            <li>
+                <span class="text-white/80">Still stuck?</span> Open an
+                <a href="https://github.com/Macs75/pixl8/issues"
+                   class="text-white underline decoration-white/30 hover:decoration-white">issue
+                on GitHub</a> with the game name and a list of the cart
+                files you have. We'll take a look.
+            </li>
+        </ul>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

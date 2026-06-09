@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backing up your data — Pixl8</title>
+    <meta name="description"
+          content="How to back up Pixl8 save data — the full Settings backup ZIP, per-cart save state export/import, and per-cart screenshot export." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Backup &amp; restore" />
+    <meta property="og:description" content="How to back up and restore your Pixl8 save data." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/backup.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/backup.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        pre        { white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Backing up your data</h1>
+        <p class="text-white/40 text-sm mt-2">
+            Three ways to take your saves, scripts, and screenshots off the device.
+        </p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 keeps a few different kinds of user data — cart save
+            data, save states, input scripts, screenshots — and exposes
+            three separate ways to back them up depending on how much you
+            want to move at once. None of these include the carts
+            themselves, since those live in the shared storage location
+            you picked during set-up and are easy to copy with any file
+            manager.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Option 1 — full backup (everything in one go)</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Use this when you want a single ZIP that covers everything
+            Pixl8 wrote on your behalf — handy before reinstalling, when
+            migrating to a new phone, or as a periodic safety copy.
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">What's included</h3>
+        <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li><code class="text-white/80">cdata</code> — per-cart
+            persistent data written via PICO-8's
+            <code class="text-white/80">dset</code> /
+            <code class="text-white/80">dget</code> (high scores,
+            unlocks, settings).</li>
+            <li><code class="text-white/80">cstore</code> — cart-stored
+            data written via PICO-8's
+            <code class="text-white/80">cstore</code>.</li>
+            <li><code class="text-white/80">saves</code> — every save
+            state for every cart, including the auto slot.</li>
+            <li><code class="text-white/80">screenshots</code> —
+            anything captured by a <code class="text-white/80">screenshot</code>
+            event during script playback.</li>
+            <li><code class="text-white/80">scripts</code> — your
+            <code class="text-white/80">.p8.script</code> recordings.</li>
+        </ul>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Exporting</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Open <span class="text-white/80">Settings → Backup &amp;
+            Restore</span>.</li>
+            <li>Tap <span class="text-white/80">Export</span>. Pixl8
+            packs the five folders into a single ZIP and asks Android
+            where to put it — Downloads, Drive, a file manager, anywhere
+            with a share target.</li>
+            <li>Confirm. You'll see a brief message naming the file
+            count and total size when it lands.</li>
+        </ol>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Restoring</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>From the same <span class="text-white/80">Settings →
+            Backup &amp; Restore</span> screen, tap
+            <span class="text-white/80">Import</span>.</li>
+            <li>Pick the ZIP you exported earlier from anywhere Android
+            can reach.</li>
+            <li>Pixl8 unpacks the five known folders back into place and
+            reports how many files were restored.</li>
+        </ol>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            Anything in the ZIP outside the five recognised folders is
+            ignored — Pixl8 won't import unfamiliar content, so it's
+            safe to drop the file into a folder of mixed stuff and let
+            the importer pick only what it knows.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Option 2 — save states for a single cart</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Sometimes you just want to share the save states for one cart
+            — handing a speedrun mid-point to a friend, or syncing one
+            game's progress to a second device without dragging
+            everything along. <span class="text-white/80">PRO</span>
+        </p>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Exporting</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Start the cart you want the save states for (or pick it
+            in your library).</li>
+            <li>Open the in-game pause menu and pick
+            <span class="text-white/80">Manage save states</span>.</li>
+            <li>Tap <span class="text-white/80">Export</span>. Pixl8
+            writes a ZIP named
+            <code class="text-white/80">&lt;cartname&gt;_savestates.zip</code>
+            containing every numbered slot plus the auto slot for that
+            cart only.</li>
+            <li>Save or share it through Android's normal file picker.</li>
+        </ol>
+
+        <h3 class="mt-8 text-lg font-semibold text-white">Importing</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Start the same cart and open
+            <span class="text-white/80">Manage save states</span>.</li>
+            <li>Tap <span class="text-white/80">Import</span> and pick
+            the ZIP.</li>
+            <li>If any incoming slots clash with save states you already
+            have, Pixl8 asks you to confirm before overwriting them.</li>
+        </ol>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            The ZIP is tied to the cart it was exported from. Importing
+            into a different cart fails with a "zip doesn't match this
+            cart's save format" message — save states embed the cart's
+            memory layout, so they can't be reused across games.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Option 3 — screenshots for a single cart</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            If you've collected screenshots from script playback — or
+            just want to pull a cart's screenshot folder out — Pixl8
+            offers a per-cart screenshot export.
+        </p>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Open <span class="text-white/80">Settings → Manage
+            screenshots</span>.</li>
+            <li>Pick the cart whose screenshots you want.</li>
+            <li>Tap <span class="text-white/80">Export</span>. The ZIP
+            is named
+            <code class="text-white/80">&lt;cartname&gt;_screenshots.zip</code>
+            and contains every PNG captured for that cart.</li>
+        </ol>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            There's no per-cart screenshot import — restoring screenshots
+            is what the full backup is for.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Which option to use when</h2>
+        <ul class="mt-3 ml-6 space-y-3 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                <span class="text-white/80">Switching phones or
+                reinstalling Pixl8</span> — full backup. One ZIP, one
+                Import, you're back where you were.
+            </li>
+            <li>
+                <span class="text-white/80">Sharing a save state with
+                someone else</span> — per-cart save state export. Much
+                smaller than a full backup and won't accidentally leak
+                anything else.
+            </li>
+            <li>
+                <span class="text-white/80">Periodic safety copy</span>
+                — full backup, kept somewhere off the device (cloud
+                drive, computer). The whole ZIP is plain content; no
+                special tooling needed to read it.
+            </li>
+            <li>
+                <span class="text-white/80">Just want some
+                screenshots</span> — per-cart screenshot export, or
+                copy them straight out of the
+                <code class="text-white/80">screenshots/</code> folder
+                if you've already enabled file-system access.
+            </li>
+        </ul>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            A backup or restore went wrong? Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a> with the exact message you saw and what you
+            were trying to do.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
