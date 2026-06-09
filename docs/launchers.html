@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adding Pixl8 to retro launchers — Pixl8</title>
+    <meta name="description"
+          content="How to wire Pixl8 into Android retro-launcher frontends like ES-DE (Emulation Station Desktop Edition) so PICO-8 carts launch directly into Pixl8 from your library." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Launcher integrations" />
+    <meta property="og:description" content="Configure Pixl8 as the PICO-8 launcher in ES-DE and other retro frontends." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/launchers.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/launchers.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        pre        { white-space: pre; overflow-x: auto; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Adding Pixl8 to retro launchers</h1>
+        <p class="text-white/40 text-sm mt-2">
+            How to wire Pixl8 into Android frontends so PICO-8 carts launch
+            straight into it from your existing library.
+        </p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            If you already keep your retro collection in a launcher like
+            ES-DE, you probably don't want to leave it just to play a
+            PICO-8 cart. Pixl8 is happy to be invoked from the outside —
+            its manifest accepts a standard
+            <code class="text-white/80">ACTION_VIEW</code> intent with a
+            content URI pointing at a <code class="text-white/80">.p8</code>
+            or <code class="text-white/80">.p8.png</code> file, so any
+            launcher that can send that intent can launch carts into Pixl8.
+            This page collects the configuration recipes for the launchers
+            that need a manual entry today.
+        </p>
+
+        <section class="mt-16">
+            <h2 class="text-2xl font-semibold">ES-DE (Emulation Station Desktop Edition)</h2>
+            <p class="mt-3 text-white/40 text-sm">
+                Tested with ES-DE for Android 3.x. Until upstream ES-DE
+                ships Pixl8 as a built-in PICO-8 emulator option, you can
+                add it yourself via the
+                <code class="text-white/80">custom_systems</code> folder.
+            </p>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">What this gets you</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                A new <span class="text-white/80">Pixl8 (Standalone)</span>
+                entry in the per-cart launcher picker for PICO-8 games.
+                When you select a <code class="text-white/80">.p8.png</code>
+                from ES-DE's PICO-8 system, you'll see Pixl8 as one of the
+                launch options alongside whatever you already had
+                (Fake-08, Retro8, Infinity, etc.). Pick it once and ES-DE
+                remembers your choice per cart.
+            </p>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Where the config files live</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                On Android, ES-DE looks for user overrides in:
+            </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">/storage/emulated/0/ES-DE/custom_systems/</pre>
+            <p class="mt-3 text-white/60 leading-relaxed">
+                You'll add two XML files there. If the folder doesn't
+                exist yet, create it with any file manager — same name,
+                exact case.
+            </p>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Step 1 — tell ES-DE Pixl8 exists</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                Create
+                <code class="text-white/80">custom_systems/es_find_rules.xml</code>
+                with the contents below. This declares a launcher token
+                <code class="text-white/80">PIXL8</code> bound to Pixl8's
+                Android package name.
+            </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">&lt;?xml version="1.0"?&gt;
+&lt;ruleList&gt;
+    &lt;emulator name="PIXL8"&gt;
+        &lt;rule type="androidpackage"&gt;
+            &lt;entry&gt;be.codedreams.pixl8&lt;/entry&gt;
+        &lt;/rule&gt;
+    &lt;/emulator&gt;
+&lt;/ruleList&gt;</pre>
+            <p class="mt-3 text-white/60 leading-relaxed">
+                If you already have a
+                <code class="text-white/80">custom_systems/es_find_rules.xml</code>
+                from another customisation, just add the
+                <code class="text-white/80">&lt;emulator name="PIXL8"&gt;</code>
+                block inside the existing
+                <code class="text-white/80">&lt;ruleList&gt;</code> — don't
+                replace the whole file.
+            </p>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Step 2 — register Pixl8 as a launch option for PICO-8</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                Create
+                <code class="text-white/80">custom_systems/es_systems.xml</code>
+                with the contents below. This redefines the
+                <code class="text-white/80">pico8</code> system to include
+                a Pixl8 command. ES-DE merges custom systems with its
+                defaults by
+                <code class="text-white/80">&lt;name&gt;</code>, so this
+                replaces the built-in <code class="text-white/80">pico8</code>
+                system entry with this expanded one.
+            </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">&lt;?xml version="1.0"?&gt;
+&lt;systemList&gt;
+    &lt;system&gt;
+        &lt;name&gt;pico8&lt;/name&gt;
+        &lt;fullname&gt;PICO-8 Fantasy Console&lt;/fullname&gt;
+        &lt;path&gt;%ROMPATH%/pico8&lt;/path&gt;
+        &lt;extension&gt;.p8 .P8 .png .PNG&lt;/extension&gt;
+        &lt;command label="Pixl8 (Standalone)"&gt;%EMULATOR_PIXL8% %ACTION%=android.intent.action.VIEW %DATA%=%ROMSAF%&lt;/command&gt;
+        &lt;platform&gt;pico8&lt;/platform&gt;
+        &lt;theme&gt;pico8&lt;/theme&gt;
+    &lt;/system&gt;
+&lt;/systemList&gt;</pre>
+            <p class="mt-3 text-white/60 leading-relaxed">
+                The <code class="text-white/80">command</code> line is
+                what does the actual work — it tells ES-DE to fire an
+                <code class="text-white/80">ACTION_VIEW</code> intent with
+                the cart's SAF URI as the data, which Pixl8's manifest
+                already accepts.
+            </p>
+
+            <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+                <p>
+                    <span class="text-white/80">Keeping other emulators
+                    alongside Pixl8?</span> Add their existing
+                    <code class="text-white/80">&lt;command&gt;</code>
+                    lines (Fake-08, Retro8, Infinity, whatever you use)
+                    above or below the Pixl8 one inside the same
+                    <code class="text-white/80">&lt;system&gt;</code>
+                    block. ES-DE will show every command in the
+                    per-cart launcher picker so you can pick the runner
+                    you want for each game.
+                </p>
+            </div>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Step 3 — drop your carts in the right place</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                ES-DE looks for PICO-8 carts under
+                <code class="text-white/80">%ROMPATH%/pico8/</code>. On a
+                stock Android install that resolves to:
+            </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">/storage/emulated/0/ROMs/pico8/</pre>
+            <p class="mt-3 text-white/60 leading-relaxed">
+                Drop your
+                <code class="text-white/80">.p8.png</code> and
+                <code class="text-white/80">.p8</code> files there.
+            </p>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Step 4 — pick Pixl8 as the PICO-8 emulator</h3>
+            <p class="mt-2 text-white/60 leading-relaxed">
+                With the two XML files in place, open ES-DE and head to:
+            </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">Settings → Other Settings → Alternative Emulators</pre>
+            <p class="mt-3 text-white/60 leading-relaxed">
+                Find the <span class="text-white/80">PICO-8 Fantasy
+                Console</span> entry and switch its emulator to
+                <span class="text-white/80">Pixl8 (Standalone)</span>.
+                That sets the default launcher for every cart in the
+                PICO-8 system; selecting any
+                <code class="text-white/80">.p8.png</code> from then on
+                opens it directly in Pixl8. No rescan needed — your
+                existing PICO-8 library is already discovered.
+            </p>
+
+            <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+                <p>
+                    <span class="text-white/80">If Pixl8 doesn't show up
+                    in the Alternative Emulators list</span>, ES-DE was
+                    almost certainly running when you dropped the XML
+                    files in. ES-DE reads
+                    <code class="text-white/80">custom_systems/</code>
+                    once on launch and doesn't reload it at runtime. Fully
+                    quit ES-DE (swipe it out of recents on Android) and
+                    reopen it — the Pixl8 entry will now appear.
+                </p>
+            </div>
+
+            <h3 class="mt-8 text-lg font-semibold text-white">Troubleshooting</h3>
+            <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+                <li>
+                    <span class="text-white/80">"Emulator not installed"
+                    error when launching a cart</span> — Pixl8 isn't on
+                    this device or the package name is wrong. Verify
+                    <code class="text-white/80">be.codedreams.pixl8</code>
+                    matches the installed Pixl8 build (Settings → Apps
+                    → Pixl8 → top-of-screen detail).
+                </li>
+                <li>
+                    <span class="text-white/80">Pixl8 launches but says
+                    it can't read the cart</span> — make sure you used
+                    <code class="text-white/80">%ROMSAF%</code> (not
+                    <code class="text-white/80">%ROM%</code>) in the
+                    command line. Pixl8 reads carts via Android's Storage
+                    Access Framework, and ES-DE only grants Pixl8 read
+                    access to the SAF variant.
+                </li>
+            </ul>
+        </section>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            Got a launcher you'd like a recipe for, or a tweak to the
+            ES-DE config above? Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a> and we'll fold it in.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
