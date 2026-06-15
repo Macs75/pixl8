@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog — Pixl8</title>
+    <meta name="description" content="What's new in each release of Pixl8, the native PICO-8 player for Android — new games, features, and fixes." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 Changelog" />
+    <meta property="og:description" content="What's new in each release of Pixl8, the native PICO-8 player for Android." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixl8.dev/changelog.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/changelog.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        .tag  { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        /* Game titles stand out in PICO-8 yellow. */
+        .game { color: #ffec27; font-weight: 500; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="index.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← Home</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Changelog</h1>
+        <p class="mt-3 text-white/50">What's new in each release of Pixl8.</p>
+
+        <!-- ============================ 1.1.0 ============================ -->
+        <section class="mt-14">
+            <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
+                <h2 class="text-2xl font-bold">1.1.0</h2>
+                <span class="tag text-[#ff77a8]">latest</span>
+            </div>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#83ff8a]">NEW</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li><strong class="text-white">New games:</strong>
+                    <span class="game">Cryomancer</span>, <span class="game">Oblivion Eve</span>,
+                    <span class="game">No-No, No-No, YES!</span> and <span class="game">Callisto</span>.</li>
+                <li><strong class="text-white">Gift-wrapped games.</strong> New games arrive wrapped up in
+                    your library. Tap once to unwrap them — ribbon, jingle and all — then play.</li>
+                <li><strong class="text-white">Remap your controller.</strong> Put any action on the
+                    button you want, including moving the pause menu wherever feels natural.</li>
+                <li><strong class="text-white">Rename games.</strong> Give any cart your own title — it
+                    shows up and sorts that way everywhere, and you can switch back any time.</li>
+                <li><strong class="text-white">Move &amp; resize the screen.</strong> Reposition and zoom
+                    the game screen and the on-screen buttons to fit your device, per orientation.</li>
+                <li><strong class="text-white">App sound toggle.</strong> Turn the launcher sounds (like
+                    the unwrap jingle) on or off. Never affects in-game audio.</li>
+                <li><strong class="text-white"><span class="game">POOM</span> now runs</strong> — the
+                    PICO-8 first-person shooter, with its keyboard and two-player controls.</li>
+                <li><strong class="text-white">Twin-stick controls.</strong> The right stick acts as a
+                    second player, for games that use both at once.</li>
+            </ul>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#29adff]">CHANGED</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li>Your library now sorts by the title you actually see, not the hidden file name.</li>
+            </ul>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#ffec27]">FIXED</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li>Music no longer restarts when lots of sound effects fire at once (like the explosions
+                    in <span class="game">Birds with Guns</span>).</li>
+                <li>Sound now follows your output device — plug in a Bluetooth headset or USB adapter
+                    mid-game and the audio keeps playing.</li>
+                <li>Games with their own pause menu (like <span class="game">POOM</span>) behave correctly:
+                    the first press opens the game's menu, the second opens Pixl8's.</li>
+                <li>Tidied up a batch of game-specific quirks, including
+                    <span class="game">From Rust to Ash</span>, <span class="game">snekburd</span>,
+                    <span class="game">void_protocol</span> and <span class="game">Linecraft</span>.</li>
+            </ul>
+        </section>
+
+        <!-- ============================ 1.0.0 ============================ -->
+        <section class="mt-16">
+            <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
+                <h2 class="text-2xl font-bold">1.0.0</h2>
+                <span class="tag text-white/40">11 Jun 2026 · first release</span>
+            </div>
+
+            <ul class="mt-7 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li>A native PICO-8 player for Android, tuned to match the real console.</li>
+                <li>A library with curated featured games plus your own carts, favourites, recents and
+                    search.</li>
+                <li>Customizable touch controls and gamepad support, at any screen size.</li>
+                <li>Low-latency audio.</li>
+                <li>Pro extras: save states, a step-by-step debugger, and an input recorder.</li>
+                <li>Back up and restore your saves, screenshots and recordings.</li>
+                <li>Open PICO-8 game links from the Lexaloffle community straight into Pixl8.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-8 text-xs text-white/40">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale. The
+        // address is stored as reversed base64 so HTML-regex scrapers
+        // never see a plain "@codedreams.be" pattern in the source.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

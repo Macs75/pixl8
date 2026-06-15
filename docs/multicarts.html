@@ -138,8 +138,8 @@
 
         <h2 class="mt-14 text-2xl font-semibold">Step 3 — choose a layout</h2>
         <p class="mt-3 text-white/60 leading-relaxed">
-            Pixl8 looks for sub-carts in two places — either works, but
-            one is much cleaner in practice.
+            Pixl8 looks for sub-carts in a few places — any of them works,
+            but some stay tidier as your collection grows.
         </p>
 
         <h3 class="mt-8 text-lg font-semibold text-white">Option A — flat (works, but messy)</h3>
@@ -184,6 +184,36 @@
             rather than user-visible content.
         </p>
 
+        <h3 class="mt-8 text-lg font-semibold text-white">Option C — one subfolder per game (tidiest for big collections)</h3>
+        <p class="mt-2 text-white/60 leading-relaxed">
+            If you keep several multicart games together, you can give each
+            one its own folder inside <code class="text-white/80">.multicarts</code>,
+            named after the main cart with the
+            <code class="text-white/80">.p8</code> /
+            <code class="text-white/80">.p8.png</code> extension removed.
+            Pixl8 looks there for that game's sub-carts, so every game's
+            pieces stay grouped under their own name instead of piling into
+            one shared <code class="text-white/80">.multicarts</code>.
+        </p>
+<pre class="mt-3 text-sm text-white/70 border border-white/10 rounded px-4 py-3">my_carts/
+├── game.p8.png             ← launch this one
+├── other_game.p8.png       ← ...and this one
+└── .multicarts/
+    ├── game/               ← matches "game.p8.png"
+    │   ├── game_2.p8.png
+    │   └── game_3.p8.png
+    └── other_game/         ← matches "other_game.p8.png"
+        ├── other_game_2.p8.png
+        └── other_game_3.p8.png</pre>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The subfolder name has to match the main cart's filename
+            exactly, minus the extension. All three layouts can coexist —
+            Pixl8 checks next to the main cart, the shared
+            <code class="text-white/80">.multicarts</code>, and the
+            per-game subfolder — so pick whichever keeps your collection
+            tidy.
+        </p>
+
         <h2 class="mt-14 text-2xl font-semibold">Notes for Android file managers</h2>
         <ul class="mt-3 ml-6 space-y-2 list-disc text-white/60 marker:text-white/40 leading-relaxed">
             <li>
@@ -215,8 +245,9 @@
                 "missing cart" message mid-play</span> — a sub-cart isn't
                 where Pixl8 expects it. Re-check that every file from the
                 BBS download is present, named exactly as downloaded, and
-                either next to the main cart or inside
-                <code class="text-white/80">.multicarts/</code>.
+                in one of the supported spots — next to the main cart,
+                inside <code class="text-white/80">.multicarts/</code>, or
+                inside its per-game subfolder.
             </li>
             <li>
                 <span class="text-white/80">The game launches but skips a
