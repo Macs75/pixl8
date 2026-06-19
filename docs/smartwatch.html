@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixl8 on your watch — Pixl8</title>
+    <meta name="description"
+          content="How Pixl8 works on Wear OS smartwatches — sending games from your phone, the on-screen controls, and how the watch app is organised (coverflow, swipe up/down)." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 on your watch" />
+    <meta property="og:description" content="Play PICO-8 games on your Wear OS smartwatch with Pixl8 — controls, cart transfer, and layout explained." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixl8.dev/smartwatch.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/smartwatch.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+
+        /* Gentle gesture hints on the diagrams — a nudge in the swipe
+           direction, looping. Purely decorative. */
+        @keyframes nudgeY { 0%,100% { transform: translateY(-2px); opacity:.45 } 50% { transform: translateY(3px); opacity:1 } }
+        @keyframes nudgeX { 0%,100% { transform: translateX(-2px); opacity:.45 } 50% { transform: translateX(3px); opacity:1 } }
+        .nudge-y { animation: nudgeY 1.7s ease-in-out infinite; }
+        .nudge-x { animation: nudgeX 1.7s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .nudge-y, .nudge-x { animation: none; } }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Pixl8 on your watch</h1>
+        <p class="text-white/40 text-sm mt-2">Playing your PICO-8 library on a Wear OS smartwatch</p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 runs on Wear OS watches — Samsung Galaxy Watch, Pixel
+            Watch and others — so your games come along on your wrist.
+            A 128×128 PICO-8 game is right at home on a tiny round screen.
+            This page covers the three things worth knowing: how the watch
+            app is laid out, how to get your games onto the watch, and how
+            to play them.
+        </p>
+
+        <!-- ───────────────────────── Layout ───────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">How the watch app is laid out</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Everything is built for a thumb and a small round screen. Your
+            games sit in a <span class="text-white/80">coverflow</span> — a
+            carousel of cart covers you flick through sideways, with the one
+            in the middle ready to play. Turn the
+            <span class="text-white/80">rotating bezel or crown</span> to
+            spin through quickly, or just swipe.
+        </p>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            There are three of these carousels stacked on top of each other.
+            <span class="text-white/80">Swipe up and down</span> to move
+            between them:
+        </p>
+
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li><span class="text-[#29adff]">Featured</span> — the games that ship with Pixl8.</li>
+            <li><span class="text-[#83ff8a]">Library</span> — the games you've sent over from your phone.</li>
+            <li><span class="text-[#ffec27]">System</span> — Unlock Pro, Exit, and Settings.</li>
+        </ul>
+
+        <p class="mt-4 text-white/60 leading-relaxed">
+            To leave a game or the app, use the watch's usual
+            <span class="text-white/80">swipe in from the left edge</span>.
+            A <span class="text-white/80">long-press</span> on any cover
+            opens a small menu — open its BBS page on your phone, resume
+            from your last save, start fresh, or delete it.
+        </p>
+
+        <!-- layout diagram: vertical pager + coverflow -->
+        <div class="mt-8 grid sm:grid-cols-2 gap-4">
+
+            <!-- vertical pager -->
+            <figure class="rounded-lg border border-white/10 bg-white/[0.02] p-6 flex flex-col items-center">
+                <svg viewBox="0 0 220 300" class="w-full max-w-[220px]" role="img" aria-label="Three carousels stacked vertically: Featured, Library, System. Swipe up and down to switch.">
+                    <!-- screens -->
+                    <g fill="none" stroke-width="2">
+                        <circle cx="62" cy="50"  r="34" stroke="#29adff" />
+                        <circle cx="62" cy="150" r="34" stroke="#83ff8a" />
+                        <circle cx="62" cy="250" r="34" stroke="#ffec27" />
+                    </g>
+                    <!-- tiny coverflow inside the top screen -->
+                    <g>
+                        <rect x="46" y="38" width="32" height="24" rx="3" fill="#29adff" opacity="0.9" />
+                        <rect x="34" y="42" width="14" height="16" rx="2" fill="#29adff" opacity="0.35" />
+                        <rect x="76" y="42" width="14" height="16" rx="2" fill="#29adff" opacity="0.35" />
+                    </g>
+                    <!-- dots inside system screen -->
+                    <g fill="#ffec27">
+                        <circle cx="62" cy="240" r="3.5" />
+                        <circle cx="54" cy="258" r="3.5" />
+                        <circle cx="70" cy="258" r="3.5" />
+                    </g>
+                    <!-- up/down swipe arrows between screens -->
+                    <g stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5">
+                        <g class="nudge-y">
+                            <path d="M62 96 l0 8 M58 100 l4 -4 4 4" />
+                            <path d="M62 204 l0 -8 M58 200 l4 4 4 -4" />
+                        </g>
+                    </g>
+                    <!-- labels -->
+                    <g fill="#ffffff" font-family="JetBrains Mono, monospace" font-size="13">
+                        <text x="110" y="46"  fill="#29adff">Featured</text>
+                        <text x="110" y="146" fill="#83ff8a">Library</text>
+                        <text x="110" y="246" fill="#ffec27">System</text>
+                        <text x="110" y="62"  fill="#ffffff" opacity="0.35" font-size="10">your games</text>
+                        <text x="110" y="162" fill="#ffffff" opacity="0.35" font-size="10">sent from phone</text>
+                        <text x="110" y="262" fill="#ffffff" opacity="0.35" font-size="10">Pro · Exit · Settings</text>
+                    </g>
+                </svg>
+                <figcaption class="mt-3 text-xs text-white/40 text-center">Swipe up / down between the three carousels</figcaption>
+            </figure>
+
+            <!-- coverflow -->
+            <figure class="rounded-lg border border-white/10 bg-white/[0.02] p-6 flex flex-col items-center justify-center">
+                <svg viewBox="0 0 220 180" class="w-full max-w-[220px]" role="img" aria-label="A coverflow of game covers; the centre one is largest and ready to play. Swipe left and right.">
+                    <!-- side covers -->
+                    <rect x="14"  y="58" width="44" height="60" rx="5" fill="#ffffff" opacity="0.12" />
+                    <rect x="162" y="58" width="44" height="60" rx="5" fill="#ffffff" opacity="0.12" />
+                    <!-- centre cover -->
+                    <rect x="66" y="40" width="88" height="92" rx="7" fill="#ff77a8" opacity="0.9" />
+                    <rect x="74" y="48" width="72" height="60" rx="3" fill="#000000" opacity="0.35" />
+                    <!-- left / right swipe arrows -->
+                    <g stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55">
+                        <g class="nudge-x">
+                            <path d="M48 90 l-8 0 M44 86 l-4 4 4 4" />
+                            <path d="M172 90 l8 0 M176 86 l4 4 -4 4" />
+                        </g>
+                    </g>
+                </svg>
+                <figcaption class="mt-3 text-xs text-white/40 text-center">Flick sideways (or turn the bezel) to pick a game</figcaption>
+            </figure>
+        </div>
+
+        <!-- ─────────────────────── Sending carts ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Getting your games onto the watch</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Games come over from the phone app — nothing is downloaded on
+            the watch itself.
+        </p>
+
+        <ol class="mt-4 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Install Pixl8 on the watch from the Play Store</li>
+            <li>If not done already, pair the watch to your phone.</li>
+            <li>In the phone app, long-press a game → <span class="text-white/80">Send to watch</span> (or multi-select to send several).</li>
+            <li>They land in the watch's <span class="text-[#83ff8a]">Library</span> carousel, ready to play.</li>
+        </ol>
+
+        <div class="mt-5 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed">
+            <p>
+                Multi-file games: send only the main cart — the watch fetches
+                the rest from your phone on demand.
+            </p>
+        </div>
+
+        <!-- phone → watch send, screen recording -->
+        <figure class="mt-6">
+            <video class="mx-auto rounded-lg border border-white/10 max-h-[70vh]"
+                   autoplay loop muted playsinline preload="metadata"
+                   src="assets/pixl8-send-demo.mp4"></video>
+            <figcaption class="mt-2 text-center text-xs text-white/40">
+                Sending carts from the phone, arriving on the watch
+            </figcaption>
+            <p class="mt-2 text-center text-xs text-white/55 leading-relaxed">
+                Demo cart artwork: free pixel art from Pixabay by
+                <a href="https://pixabay.com/users/anciee-50696928/"
+                   class="text-white/70 underline decoration-white/30 hover:text-white">Anciee</a>,
+                <a href="https://pixabay.com/users/pixiplus-32898520/"
+                   class="text-white/70 underline decoration-white/30 hover:text-white">Pixiplus</a>
+                and
+                <a href="https://pixabay.com/users/lesiakower-25701529/"
+                   class="text-white/70 underline decoration-white/30 hover:text-white">Lesiakower</a>.
+            </p>
+        </figure>
+
+        <!-- ─────────────────────── Controls ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Playing — the on-screen controls</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The whole screen is your gamepad, split down the middle:
+        </p>
+
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>
+                <span class="text-[#29adff]">Left half — movement.</span>
+                Tap a direction for a quick step, or press and slide for a
+                little joystick. Steer with one thumb while you tap a button
+                with the other.
+            </li>
+            <li>
+                <span class="text-[#ff77a8]">Right half — the two buttons.</span>
+                <span class="text-white/80">X</span> on top,
+                <span class="text-white/80">O</span> on the bottom (PICO-8's
+                two action buttons).
+            </li>
+            <li>
+                <span class="text-[#83ff8a]">Bottom strip — pause.</span>
+                A tap along the bottom opens the pause menu. You can also
+                <span class="text-white/80">flick your wrist</span> to pause.
+            </li>
+        </ul>
+
+        <!-- controls diagram -->
+        <figure class="mt-8 rounded-lg border border-white/10 bg-white/[0.02] p-6 flex flex-col items-center">
+            <svg viewBox="0 0 260 260" class="w-full max-w-[260px]" role="img" aria-label="A round watch face. Left half is a directional pad, right half has the O and X buttons, the bottom strip pauses.">
+                <!-- bezel + screen -->
+                <circle cx="130" cy="130" r="126" fill="none" stroke="#ffffff" stroke-opacity="0.12" stroke-width="6" />
+                <circle cx="130" cy="130" r="118" fill="#050505" />
+                <!-- centre divider -->
+                <line x1="130" y1="22" x2="130" y2="238" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1.5" stroke-dasharray="3 5" />
+
+                <!-- left: Material "gamepad" glyph (960-grid), scaled to a
+                     44px footprint centred at (78,124) — mirrors the app's
+                     control hint. translate + scale maps glyph centre
+                     (480,480) → (78,124). -->
+                <g fill="#29adff" transform="translate(51.6 97.6) scale(0.055)">
+                    <path d="M480,420L360,300L360,80L600,80L600,300L480,420ZM660,600L540,480L660,360L880,360L880,600L660,600ZM80,600L80,360L300,360L420,480L300,600L80,600ZM360,880L360,660L480,540L600,660L600,880L360,880ZM480,306L520,266L520,160L440,160L440,266L480,306ZM160,520L266,520L306,480L266,440L160,440L160,520ZM440,800L520,800L520,694L480,654L440,694L440,800ZM694,520L800,520L800,440L694,440L654,480L694,520Z" />
+                </g>
+
+                <!-- right top: X (yellow) -->
+                <g stroke="#ffec27" stroke-width="5" stroke-linecap="round">
+                    <line x1="166" y1="84"  x2="190" y2="108" />
+                    <line x1="166" y1="108" x2="190" y2="84"  />
+                </g>
+                <!-- right bottom: O (pink) -->
+                <circle cx="178" cy="164" r="17" fill="none" stroke="#ff77a8" stroke-width="5" />
+
+                <!-- bottom strip: pause (green) -->
+                <rect x="74" y="198" width="112" height="26" rx="13" fill="#83ff8a" fill-opacity="0.14" stroke="#83ff8a" stroke-opacity="0.5" stroke-width="1.5" />
+                <g fill="#83ff8a">
+                    <rect x="124" y="204" width="4" height="14" rx="1.5" />
+                    <rect x="132" y="204" width="4" height="14" rx="1.5" />
+                </g>
+            </svg>
+            <figcaption class="mt-4 grid grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-white/50">
+                <span><span class="text-[#29adff]">●</span> move (tap or slide)</span>
+                <span><span class="text-[#ff77a8]">●</span> O button</span>
+                <span><span class="text-[#83ff8a]">●</span> tap to pause</span>
+                <span><span class="text-[#ffec27]">●</span> X button</span>
+            </figcaption>
+        </figure>
+
+        <p class="mt-6 text-white/60 leading-relaxed">
+            Don't want one of the pause options? Both the wrist-tilt and the
+            bottom-strip tap can be switched off in
+            <span class="text-white/80">Settings</span> (you can't turn off
+            both — one always stays so you can quit).
+        </p>
+
+        <!-- ─────────────────── Fitting the screen ─────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Fitting the game on a round screen</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            A PICO-8 game is square and your watch is round, so by default
+            Pixl8 tucks the whole game just inside the bezel — nothing
+            important gets clipped in the corners. If you'd rather fill more
+            of the screen (and let the corners spill past the edge), open
+            <span class="text-white/80">Settings → Screen game size</span>
+            and drag the slider — a red outline previews exactly how the
+            game will sit. On a watch with a rotating bezel you can also
+            adjust it from inside a game by turning the bezel while paused.
+        </p>
+
+        <!-- ─────────────────────── Settings & Pro ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Settings &amp; Pro</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The <span class="text-[#ffec27]">System</span> carousel holds the
+            watch settings:
+        </p>
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li><span class="text-white/80">Resume on tap</span> — a plain tap on a game continues from your last save instead of starting over. <span class="inline-block ml-1 px-1.5 py-0.5 text-[10px] font-bold tracking-wider rounded-sm bg-[#ffec27] text-black align-middle">PRO</span></li>
+            <li><span class="text-white/80">Auto-save on exit</span> — quietly saves where you were when you quit, so the next launch picks up where you left off. <span class="inline-block ml-1 px-1.5 py-0.5 text-[10px] font-bold tracking-wider rounded-sm bg-[#ffec27] text-black align-middle">PRO</span></li>
+            <li><span class="text-white/80">Tap to pause</span> / <span class="text-white/80">Tilt to pause</span> — the two pause-method toggles.</li>
+            <li><span class="text-white/80">Screen game size</span> — the round-screen fit slider above.</li>
+        </ul>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            You can <a href="faq.html" class="text-white underline decoration-white/30 hover:decoration-white">unlock Pro</a>
+            right on the watch from the System carousel — and if you already
+            bought it on your phone, it carries over automatically.
+        </p>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            New to Pixl8 generally? The
+            <a href="faq.html" class="text-white/60 underline decoration-white/30 hover:decoration-white/60">FAQ</a>
+            and the other
+            <a href="how-to.html" class="text-white/60 underline decoration-white/30 hover:decoration-white/60">how-tos</a>
+            cover the phone app. Spot something that should be on this page?
+            Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a>.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
