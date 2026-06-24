@@ -251,36 +251,57 @@
             <!-- Secondary action buttons. Hover lifts opacity rather than
                  swapping colours, so the rainbow logo stays the only loud
                  thing on the page. -->
-            <div class="word-in word-in-4 mt-4 flex flex-wrap items-center justify-center gap-3">
-                <a href="faq.html"
-                   class="inline-flex items-center justify-center px-5 py-2.5
-                          border border-white/20 text-white/80
-                          hover:border-white/50 hover:text-white
-                          transition-colors text-sm">
-                    FAQ
-                </a>
-                <a href="how-to.html"
-                   class="inline-flex items-center justify-center px-5 py-2.5
-                          border border-white/20 text-white/80
-                          hover:border-white/50 hover:text-white
-                          transition-colors text-sm">
-                    How-tos
-                </a>
-                <a href="changelog.html"
-                   class="inline-flex items-center justify-center px-5 py-2.5
-                          border border-white/20 text-white/80
-                          hover:border-white/50 hover:text-white
-                          transition-colors text-sm">
-                    Changelog
-                </a>
-                <a href="https://github.com/Macs75/pixl8/issues"
-                   class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5
-                          border border-white/20 text-white/80
-                          hover:border-white/50 hover:text-white
-                          transition-colors text-sm">
-                    Report an issue
-                    <span aria-hidden="true" class="text-white/40">↗</span>
-                </a>
+            <!-- Two centred rows: the three doc links on top, then the two
+                 external (↗) links below, so the row doesn't get too wide. -->
+            <div class="word-in word-in-4 mt-4 flex flex-col items-center gap-4">
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <a href="faq.html"
+                       class="inline-flex items-center justify-center px-5 py-2.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-sm">
+                        FAQ
+                    </a>
+                    <a href="how-to.html"
+                       class="inline-flex items-center justify-center px-5 py-2.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-sm">
+                        How-tos
+                    </a>
+                    <a href="changelog.html"
+                       class="inline-flex items-center justify-center px-5 py-2.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-sm">
+                        Changelog
+                    </a>
+                </div>
+                <!-- Same bordered style as the row above, just smaller (less
+                     padding, text-xs) so they read as secondary without the
+                     two rows looking like one rigid grid of equal boxes. -->
+                <div class="flex flex-wrap items-center justify-center gap-2.5">
+                    <a href="https://www.youtube.com/playlist?list=PLi2q3YcbeJFji3oC7ctcqp-ly6VvLphrp"
+                       target="_blank" rel="noopener"
+                       class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-xs">
+                        <svg width="9" height="11" viewBox="0 0 30 34" aria-hidden="true">
+                            <path d="M3 2.6 27 17 3 31.4z" fill="currentColor"/>
+                        </svg>
+                        Watch
+                        <span aria-hidden="true" class="text-white/40">↗</span>
+                    </a>
+                    <a href="https://github.com/Macs75/pixl8/issues"
+                       class="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-xs">
+                        Report an issue
+                        <span aria-hidden="true" class="text-white/40">↗</span>
+                    </a>
+                </div>
             </div>
         </div>
     </main>
