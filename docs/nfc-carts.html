@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NFC carts — tap to play — Pixl8</title>
+    <meta name="description"
+          content="Turn a cheap NFC tag into a physical PICO-8 cartridge: write a tag from any game in Pixl8, then tap it to launch the game." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — NFC carts" />
+    <meta property="og:description" content="Write an NFC tag from any game and tap it to play — a physical cartridge for a digital game." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/nfc-carts.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/nfc-carts.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">NFC carts — tap to play</h1>
+        <p class="text-white/40 text-sm mt-2">Turn a cheap NFC tag into a physical cartridge that launches a game on tap</p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 can write a "play this game" NFC tag from any game in your
+            library. Tap the tag to the back of your phone and the game boots — a
+            little physical cartridge for a digital game. It's free, and it takes
+            about ten seconds to make one.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">What you need</h2>
+        <ul class="mt-3 text-white/60 leading-relaxed list-none space-y-2">
+            <li>— An <strong class="text-white/80">NFC-capable Android phone</strong> (most modern phones have it).</li>
+            <li>— A <strong class="text-white/80">blank NFC tag or sticker</strong>. The common cheap ones —
+                NTAG213 / 215 / 216 — all work; even the smallest holds what's needed.</li>
+        </ul>
+
+        <h2 class="mt-14 text-2xl font-semibold">Make a cart</h2>
+        <ol class="mt-3 text-white/60 leading-relaxed list-none space-y-3">
+            <li><span class="text-white/80 font-semibold">1.</span> Long-press a game in your library and choose
+                <span class="text-white/80">"Write NFC cart"</span>.</li>
+            <li><span class="text-white/80 font-semibold">2.</span> Hold a blank tag to the back of your phone until
+                it says <span class="text-white/80">"Written!"</span>.</li>
+        </ol>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            That's it — the tag now points at that game.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Play it</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            With your phone unlocked, tap the tag to the back — Pixl8 opens and
+            plays that game. Hand the tag to a friend and it just works too: if
+            they don't have Pixl8 yet, the tag sends them to the Play Store to
+            install it, and then it launches the game.
+        </p>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            It works with any game in your library and with the built-in
+            <a href="faq.html" class="text-white underline decoration-white/30 hover:decoration-white">featured
+            games</a> — including <a href="multicarts.html" class="text-white underline decoration-white/30 hover:decoration-white">multi-file
+            (multicart) games</a>.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">How it works</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            The tag stores a tiny link that names the game by its
+            <em class="text-white/80">content</em> — a fingerprint of the cart —
+            rather than a file path. When you tap it, Pixl8 looks that game up in
+            your library and launches it. Because it's a content fingerprint, a
+            tag written on one phone also works on another phone that has the same
+            game. Nothing about the tag phones home; it's just a short link Pixl8
+            recognises.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">Make it look the part</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            A bare sticker works fine, but half the fun is the presentation — tuck
+            the tag behind a printed label or a little cartridge card and you've
+            got a shelf of real cartridges to pick from.
+        </p>
+
+        <h2 class="mt-14 text-2xl font-semibold">If a tap does nothing</h2>
+        <ul class="mt-3 text-white/60 leading-relaxed list-none space-y-2">
+            <li>— Check <strong class="text-white/80">NFC is on</strong> (Settings → Connected devices) and the
+                phone is <strong class="text-white/80">unlocked with the screen on</strong>.</li>
+            <li>— Touch the tag to the <strong class="text-white/80">right spot</strong> — usually the upper-back of
+                the phone. Move it around slowly if the first try misses.</li>
+            <li>— "That game isn't in your library" means the tag names a game you don't have — add that game, or
+                use a tag written for one you own.</li>
+        </ul>
+
+        <p class="mt-14 text-white/40 text-sm leading-relaxed">
+            The short version: <span class="text-white/60">long-press a game → Write NFC cart → tap to play.</span>
+            Cheap tags, no subscription, works offline.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
