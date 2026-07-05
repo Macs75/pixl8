@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playing multiplayer — Pixl8</title>
+    <meta name="description"
+          content="How to play two-player PICO-8 in Pixl8 — hosting and joining over the same Wi-Fi, a direct link between two phones, or online, and how to add a friend." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Multiplayer guide" />
+    <meta property="og:description" content="How to play two-player PICO-8 in Pixl8 — over Wi-Fi, a direct link, or online." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://pixl8.dev/multiplayer.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/multiplayer.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Playing multiplayer</h1>
+        <p class="text-white/40 text-sm mt-2">Two players, one cart — over the same Wi-Fi, a direct link between two phones, or online</p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 lets two people play the same PICO-8 cart together in real
+            time — one of you hosts, the other joins, and you both share
+            control (a Player&nbsp;1 and a Player&nbsp;2). It works with carts
+            that read a second player's controls; Pixl8 marks those with a
+            small two-player badge in your library, and warns you before you
+            invite someone to a single-player game.
+        </p>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            There's more on connection quality and the online limits in the
+            <a href="faq.html" class="text-white underline decoration-white/30 hover:decoration-white">FAQ</a>.
+            This page is the hands-on version.
+        </p>
+
+        <div class="mt-8 rounded-lg border border-white/10 bg-white/[0.03] px-5 py-4">
+            <p class="text-sm text-white/70 leading-relaxed">
+                <span class="inline-block mr-1 px-1.5 py-0.5 text-[10px] font-bold tracking-wider rounded-sm bg-[#ffec27] text-black align-middle">PRO</span>
+                <span class="text-white/80 font-semibold">Hosting a game is a Pro
+                feature.</span> Joining a game someone else hosts is free for
+                everyone — so one person with Pro can host, and a friend without
+                it can join and play.
+            </p>
+        </div>
+
+        <!-- ============ STARTING A GAME ============ -->
+        <h2 class="mt-16 text-2xl font-semibold">Starting a game</h2>
+
+        <h3 class="mt-10 text-lg font-semibold text-white">The quickest way — long-press &amp; host</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Long-press any cart in your library and pick
+            <span class="text-white/80 font-semibold">"Host on LAN"</span>.
+            That drops you straight into the waiting room for that game, ready
+            for a second player on the same Wi-Fi to join — no extra steps.
+        </p>
+        <figure class="mt-6">
+            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
+                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>Long-press a cart → context menu<br>with "Host on LAN" highlighted</span>
+            </div>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">Long-press a cart, choose "Host on LAN"</figcaption>
+        </figure>
+
+        <h3 class="mt-12 text-lg font-semibold text-white">From the multiplayer lobby</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Tap the multiplayer icon at the top of your library to open the
+            lobby. From here you can <span class="text-white/80">host a new
+            game</span> (pick which cart to host), or <span class="text-white/80">join</span>
+            a game someone nearby is hosting — their rooms show up in the list
+            as they appear. This is also where you'll see friends who are
+            online and players nearby.
+        </p>
+        <figure class="mt-6">
+            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
+                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>The multiplayer lobby —<br>"host a new game", discovered<br>rooms, nearby / online players</span>
+            </div>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">The multiplayer lobby</figcaption>
+        </figure>
+
+        <h3 class="mt-12 text-lg font-semibold text-white">Shake to connect — two phones side by side</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            If you're both looking at the multiplayer lobby, just
+            <span class="text-white/80">shake the two phones at the same
+            time</span>. Pixl8 notices you both, pairs you up, and starts the
+            game together — no room list, no codes. It's the fastest way to get
+            a quick game going when you're in the same room.
+        </p>
+        <figure class="mt-6">
+            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
+                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>Two phones being shaken<br>in the lobby / the "pairing"<br>state</span>
+            </div>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">Shake both phones from the lobby to pair</figcaption>
+        </figure>
+
+        <!-- ============ PLAYING WITH A FRIEND ONLINE ============ -->
+        <h2 class="mt-16 text-2xl font-semibold">Playing with a friend online</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            To play with someone who isn't in the room with you, you first add
+            them as a friend. After that, you can invite each other to play
+            online (over Wi-Fi — see the <a href="faq.html" class="text-white underline decoration-white/30 hover:decoration-white">FAQ</a>
+            for what to expect from internet play). There are two ways to add a
+            friend.
+        </p>
+
+        <h3 class="mt-10 text-lg font-semibold text-white">See someone nearby</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            When you and a friend both have Pixl8 open near each other, you'll
+            see each other show up automatically — tap to add them. Handy for
+            the first time you meet up: add each other once in person, then play
+            online later from anywhere.
+        </p>
+        <figure class="mt-6">
+            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
+                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>A nearby person appearing,<br>ready to add as a friend</span>
+            </div>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">A nearby friend, ready to add</figcaption>
+        </figure>
+
+        <h3 class="mt-12 text-lg font-semibold text-white">Add by code</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Not in the same place? Open your friends list and choose
+            <span class="text-white/80">Add a friend</span>. One of you shares a
+            short code; the other types it in. That's it — you're friends, and
+            can invite each other to play from anywhere.
+        </p>
+        <figure class="mt-6">
+            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
+                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>The "Add a friend" screen —<br>share your code / enter theirs</span>
+            </div>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">Share a code, or enter a friend's</figcaption>
+        </figure>
+
+        <h3 class="mt-12 text-lg font-semibold text-white">Inviting a friend to play</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            Once you're friends and both online, a friend who's available shows
+            up in the lobby — tap them to invite them to play the game you're
+            set to host. They get a prompt to accept, and you're off. If online
+            play is experimental on your network, Pixl8 gives you a quick
+            heads-up before the game starts.
+        </p>
+
+        <p class="mt-14 text-white/40 text-sm leading-relaxed">
+            One more time on the essentials: it's <span class="text-white/60">two players</span>,
+            local play (same Wi-Fi or a direct link) is the smoothest, online is
+            more experimental and needs <span class="text-white/60">Wi-Fi on both
+            sides</span> (no mobile data). The
+            <a href="faq.html" class="text-white/70 underline decoration-white/30 hover:decoration-white">FAQ</a>
+            covers the why.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>

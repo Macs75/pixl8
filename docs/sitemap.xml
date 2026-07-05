@@ -23,6 +23,13 @@
     </url>
 
     <url>
+        <loc>https://pixl8.dev/multiplayer.html</loc>
+        <lastmod>2026-07-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
         <loc>https://pixl8.dev/changelog.html</loc>
         <lastmod>2026-06-14</lastmod>
         <changefreq>monthly</changefreq>
