@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplayer games — Pixl8</title>
+    <meta name="description"
+          content="A hand-picked list of two-player PICO-8 games to play in Pixl8's multiplayer. Each links to its Lexaloffle BBS page, where you download the cart from the author." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — Multiplayer games to play" />
+    <meta property="og:description" content="Hand-picked two-player PICO-8 games — grab each from its Lexaloffle BBS page." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixl8.dev/mp-games.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/mp-games.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        .cover     { image-rendering: pixelated; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="index.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← Home</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Multiplayer games</h1>
+        <p class="mt-4 text-white/60 leading-relaxed max-w-2xl">
+            A hand-picked list of two-player PICO-8 games to try in Pixl8's
+            multiplayer. Pixl8 doesn't host these — tap a game to open its
+            <span class="text-white/80">Lexaloffle&nbsp;BBS</span> page, where you
+            download the cart straight from its author. Add it to your library and
+            it's ready to host or join.
+        </p>
+
+        <div id="grid" class="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-5 gap-y-8"></div>
+
+        <p id="empty" class="mt-12 text-white/40 text-sm hidden">Nothing here yet — check back soon.</p>
+
+        <p class="mt-16 text-white/30 text-xs leading-relaxed max-w-2xl">
+            Covers are the carts' own label art, shown for identification; the games
+            themselves are the authors', hosted on the Lexaloffle BBS. Not affiliated
+            with Lexaloffle.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script type="application/json" id="mpGames">
+[
+  {
+    "file": "picopuyotetris-11.p8.png",
+    "pid": "picopuyotetris",
+    "title": "picopuyotetris",
+    "author": "6teloiv",
+    "bbs": "https://www.lexaloffle.com/bbs/?tid=49179"
+  },
+  {
+    "file": "marshinfinity_cubg_1-0.p8.png",
+    "pid": "marshinfinity",
+    "title": "Marshmallow Infinity v1.2",
+    "author": "cubee",
+    "bbs": "https://www.lexaloffle.com/bbs/?tid=37026"
+  },
+  {
+    "file": "mubanga_cupcake_frenzy-2.p8.png",
+    "pid": "cupcake_frenzy",
+    "title": "Cupcake Frenzy!",
+    "author": "Mubanga",
+    "bbs": "https://www.lexaloffle.com/bbs/?tid=153293"
+  },
+  {
+    "file": "51449.p8.png",
+    "pid": "amazeball_dudes",
+    "title": "Amazeball Dudes",
+    "author": "Pigmeat",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=51238#p"
+  },
+  {
+    "file": "21603.p8.png",
+    "pid": "mistigri",
+    "title": "Mistigri 1.03",
+    "author": "benjamin_soule",
+    "bbs": "https://www.lexaloffle.com/bbs/?tid=3421"
+  },
+  {
+    "file": "31361.p8.png",
+    "pid": "kick_wizards",
+    "title": "Kick Wizards 1.6",
+    "author": "fweez",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=31203#p"
+  },
+  {
+    "file": "47907.p8.png",
+    "pid": "super_lunchout2",
+    "title": "Super Lunch-Out 2 Turbo",
+    "author": "joseph3000",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=45816#p"
+  },
+  {
+    "file": "minigunn-0.p8.png",
+    "pid": "minigunn",
+    "title": "Mini GUNN",
+    "author": "Waporwave",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=156863#p"
+  },
+  {
+    "file": "bombjack-0.p8.png",
+    "pid": "bombjack",
+    "title": "Bombjack",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=bombjack"
+  },
+  {
+    "file": "bubblebobble-1.p8.png",
+    "pid": "bubblebobble",
+    "title": "Bubble Bobble 0.8",
+    "author": "pahammond",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=bubblebobble"
+  },
+  {
+    "file": "bushi_brawler-0.p8.png",
+    "pid": "bushi_brawler",
+    "title": "Bushi Brawler",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=bushi_brawler"
+  },
+  {
+    "file": "detris-12.p8.png",
+    "pid": "detris",
+    "title": "Detris",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=detris"
+  },
+  {
+    "file": "freezing_knights-9.p8.png",
+    "pid": "freezing_knights",
+    "title": "Freezing Knights",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=freezing_knights"
+  },
+  {
+    "file": "manbomber-0.p8.png",
+    "pid": "manbomber",
+    "title": "Manbomber",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=manbomber"
+  },
+  {
+    "file": "mohizukeri-0.p8.png",
+    "pid": "mohizukeri",
+    "title": "Mohizukeri",
+    "author": "",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=mohizukeri"
+  },
+  {
+    "file": "pico_ball-5.p8.png",
+    "pid": "pico_ball",
+    "title": "PICO-BALL v1.1.3",
+    "author": "Munchkin",
+    "bbs": "https://www.lexaloffle.com/bbs/?pid=pico_ball"
+  }
+]
+    </script>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL; a.textContent = EMAIL;
+            });
+        })();
+
+        // Card gallery — the list is the JSON block above (edit it to curate). Read
+        // inline so the page works offline / from file:// too (no fetch, no CORS).
+        (function () {
+            var games = JSON.parse(document.getElementById('mpGames').textContent);
+            var grid = document.getElementById('grid');
+            if (!games.length) { document.getElementById('empty').classList.remove('hidden'); return; }
+            games.forEach(function (g) {
+                var a = document.createElement('a');
+                a.href = g.bbs; a.target = '_blank'; a.rel = 'noopener';
+                a.className = 'group block';
+                var cover = 'assets/mp-games/' + g.pid + '.png';
+                a.innerHTML =
+                    '<div class="rounded-lg overflow-hidden border border-white/10 group-hover:border-white/40 transition-colors bg-white/[0.03]">' +
+                      '<img class="cover w-full" style="aspect-ratio:160/205;object-fit:cover" src="' + cover + '" alt="" loading="lazy" />' +
+                    '</div>' +
+                    '<div class="mt-2 text-sm text-white font-semibold leading-snug group-hover:text-white/80">' + (g.title || g.pid) + '</div>' +
+                    (g.author ? '<div class="text-xs text-white/45">' + g.author + '</div>' : '') +
+                    '<div class="mt-1 text-xs text-white/40 group-hover:text-white/70 transition-colors">View on BBS →</div>';
+                grid.appendChild(a);
+            });
+        })();
+    </script>
+</body>
+</html>
