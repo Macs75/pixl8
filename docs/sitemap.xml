@@ -24,16 +24,23 @@
 
     <url>
         <loc>https://pixl8.dev/multiplayer.html</loc>
-        <lastmod>2026-07-05</lastmod>
+        <lastmod>2026-07-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
 
     <url>
         <loc>https://pixl8.dev/nfc-carts.html</loc>
-        <lastmod>2026-07-05</lastmod>
+        <lastmod>2026-07-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://pixl8.dev/nfc-card.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 
     <url>
@@ -45,7 +52,7 @@
 
     <url>
         <loc>https://pixl8.dev/changelog.html</loc>
-        <lastmod>2026-06-14</lastmod>
+        <lastmod>2026-07-08</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
