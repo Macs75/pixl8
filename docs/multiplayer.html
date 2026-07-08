@@ -31,6 +31,25 @@
         html, body { background: #000; }
         body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
         ::selection { background: #ffec27; color: #000; }
+
+        /* "Shake the phone" demo: rock left-right around the BOTTOM edge, so the
+           top swings wide while the base barely moves — like a phone waggled in
+           your hand. One burst of wobbles, then a beat of rest; repeats every 2s. */
+        .phone-shake {
+            transform-origin: 50% 100%;
+            animation: phone-shake 2s ease-in-out infinite;
+        }
+        @keyframes phone-shake {
+            0%, 40%, 100% { transform: rotate(0deg); }
+            6%            { transform: rotate(-5deg); }
+            13%           { transform: rotate(5deg);  }
+            20%           { transform: rotate(-4deg); }
+            27%           { transform: rotate(3deg);  }
+            34%           { transform: rotate(-1.5deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .phone-shake { animation: none; }
+        }
     </style>
 </head>
 
@@ -87,9 +106,8 @@
             for a second player on the same Wi-Fi to join — no extra steps.
         </p>
         <figure class="mt-6">
-            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
-                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>Long-press a cart → context menu<br>with "Host on LAN" highlighted</span>
-            </div>
+            <img src="assets/screenshots/mp-host-on-lan.png" alt="Long-press a cart's context menu with &quot;Host on LAN&quot; highlighted"
+                 class="mx-auto max-w-[230px] w-full h-auto rounded-xl border border-white/10 shadow-lg shadow-black/40" />
             <figcaption class="mt-2 text-center text-white/30 text-xs">Long-press a cart, choose "Host on LAN"</figcaption>
         </figure>
 
@@ -103,9 +121,8 @@
             online and players nearby.
         </p>
         <figure class="mt-6">
-            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
-                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>The multiplayer lobby —<br>"host a new game", discovered<br>rooms, nearby / online players</span>
-            </div>
+            <img src="assets/screenshots/mp-lobby-host-new-game.png" alt="The multiplayer lobby, with &quot;Host a new game&quot; highlighted alongside online friends and nearby games"
+                 class="mx-auto max-w-[230px] w-full h-auto rounded-xl border border-white/10 shadow-lg shadow-black/40" />
             <figcaption class="mt-2 text-center text-white/30 text-xs">The multiplayer lobby</figcaption>
         </figure>
 
@@ -118,9 +135,8 @@
             a quick game going when you're in the same room.
         </p>
         <figure class="mt-6">
-            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
-                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>Two phones being shaken<br>in the lobby / the "pairing"<br>state</span>
-            </div>
+            <img src="assets/screenshots/mp-shake-pairing.png" alt="The lobby while shaking: the nearby player shows &quot;Shaking now!&quot; and the phones pair up"
+                 class="phone-shake mx-auto max-w-[230px] w-full h-auto rounded-xl border border-white/10 shadow-lg shadow-black/40" />
             <figcaption class="mt-2 text-center text-white/30 text-xs">Shake both phones from the lobby to pair</figcaption>
         </figure>
 
@@ -136,17 +152,12 @@
 
         <h3 class="mt-10 text-lg font-semibold text-white">See someone nearby</h3>
         <p class="mt-3 text-white/60 leading-relaxed">
-            When you and a friend both have Pixl8 open near each other, you'll
-            see each other show up automatically — tap to add them. Handy for
-            the first time you meet up: add each other once in person, then play
-            online later from anywhere.
+            When you and someone else both have the <span class="text-white/80">LAN
+            multiplayer</span> screen open near each other, you'll show up in each
+            other's list automatically. Tap them, pick a game to play together, and
+            an invitation is sent; if they accept, the game starts <em>and</em> you're
+            added as friends, so next time you can play online from anywhere.
         </p>
-        <figure class="mt-6">
-            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
-                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>A nearby person appearing,<br>ready to add as a friend</span>
-            </div>
-            <figcaption class="mt-2 text-center text-white/30 text-xs">A nearby friend, ready to add</figcaption>
-        </figure>
 
         <h3 class="mt-12 text-lg font-semibold text-white">Add by code</h3>
         <p class="mt-3 text-white/60 leading-relaxed">
@@ -156,19 +167,34 @@
             can invite each other to play from anywhere.
         </p>
         <figure class="mt-6">
-            <div class="mx-auto max-w-[230px] aspect-[9/18] rounded-xl border-2 border-dashed border-white/20 bg-white/[0.03] flex items-center justify-center text-center p-4">
-                <span class="text-white/40 text-xs leading-relaxed">📷 SCREENSHOT<br>The "Add a friend" screen —<br>share your code / enter theirs</span>
+            <div class="flex items-center justify-center gap-1.5 sm:gap-3 overflow-x-auto pb-1">
+                <div class="shrink-0 w-[31%] max-w-[200px]">
+                    <img src="assets/screenshots/mp-code-1-choose.png" alt="Add a friend — choose Share code or Enter code"
+                         class="w-full rounded-xl border border-white/10 shadow-lg shadow-black/40" />
+                    <p class="mt-2 text-center text-sm font-bold"><span class="text-[#29adff]">Device&nbsp;A</span> &amp; <span class="text-[#ff77a8]">Device&nbsp;B</span></p>
+                </div>
+                <span class="shrink-0 text-white/25 text-2xl leading-none" aria-hidden="true">→</span>
+                <div class="shrink-0 w-[31%] max-w-[200px]">
+                    <img src="assets/screenshots/mp-code-2-share.png" alt="Share code — the short code your friend types in"
+                         class="w-full rounded-xl border border-white/10 shadow-lg shadow-black/40" />
+                    <p class="mt-2 text-center text-sm font-bold text-[#29adff]">Device&nbsp;A</p>
+                </div>
+                <span class="shrink-0 text-white/25 text-2xl leading-none" aria-hidden="true">→</span>
+                <div class="shrink-0 w-[31%] max-w-[200px]">
+                    <img src="assets/screenshots/mp-code-3-enter.png" alt="Enter a friend's code — type the code they shared"
+                         class="w-full rounded-xl border border-white/10 shadow-lg shadow-black/40" />
+                    <p class="mt-2 text-center text-sm font-bold text-[#ff77a8]">Device&nbsp;B</p>
+                </div>
             </div>
-            <figcaption class="mt-2 text-center text-white/30 text-xs">Share a code, or enter a friend's</figcaption>
+            <figcaption class="mt-2 text-center text-white/30 text-xs">Both open “Add a friend” → Device&nbsp;A shares a code → Device&nbsp;B enters it</figcaption>
         </figure>
 
         <h3 class="mt-12 text-lg font-semibold text-white">Inviting a friend to play</h3>
         <p class="mt-3 text-white/60 leading-relaxed">
-            Once you're friends and both online, a friend who's available shows
-            up in the lobby — tap them to invite them to play the game you're
-            set to host. They get a prompt to accept, and you're off. If online
-            play is experimental on your network, Pixl8 gives you a quick
-            heads-up before the game starts.
+            Once you have a list of friends, any who are online show up in the
+            lobby with a green dot. Tap one, choose a game to play, and an
+            invitation is sent. When they accept, the game starts for both
+            of you.
         </p>
 
         <p class="mt-14 text-white/40 text-sm leading-relaxed">
