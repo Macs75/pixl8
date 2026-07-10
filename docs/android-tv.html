@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixl8 on Android TV — Pixl8</title>
+    <meta name="description"
+          content="How to get your PICO-8 library onto Android TV with Pixl8: sending carts from your phone across your local Wi-Fi, including whole multi-cart games." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 on Android TV" />
+    <meta property="og:description" content="Send your PICO-8 carts from your phone to Pixl8 on Android TV over Wi-Fi, then play them on the big screen." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixl8.dev/android-tv.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/android-tv.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+
+        /* A cart drifting from phone to TV along the Wi-Fi link. Purely decorative. */
+        @keyframes flow { 0% { transform: translateX(0); opacity: 0 } 15% { opacity: 1 } 85% { opacity: 1 } 100% { transform: translateX(96px); opacity: 0 } }
+        .flow { animation: flow 2.6s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .flow { animation: none; opacity: 1; } }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="how-to.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← How-tos</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+        <h1 class="text-4xl font-bold">Pixl8 on Android TV</h1>
+        <p class="text-white/40 text-sm mt-2">Getting your PICO-8 library onto the big screen</p>
+
+        <p class="mt-10 text-white/60 leading-relaxed">
+            Pixl8 runs on Android TV and TV boxes, navigated entirely with the
+            D-pad or remote. Your games live on the TV itself, just like on a
+            phone. There's no file picker or download browser up there, so the
+            first thing to do on a fresh TV is bring your library across: carts
+            travel from your phone to the TV over your local Wi-Fi. This page
+            walks through that transfer.
+        </p>
+
+        <!-- ─────────────────────── Before you start ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Before you start</h2>
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Pixl8 installed on <span class="text-white/80">both</span> the phone and the TV.</li>
+            <li>Both devices on the <span class="text-white/80">same Wi-Fi network</span>. A guest network that isolates devices from each other will not work.</li>
+        </ul>
+
+        <!-- phone → TV diagram -->
+        <figure class="mt-8 rounded-lg border border-white/10 bg-white/[0.02] p-6 flex flex-col items-center">
+            <svg viewBox="0 0 300 150" class="w-full max-w-[300px]" role="img" aria-label="A phone on the left sends a cart across Wi-Fi to a television on the right.">
+                <!-- phone -->
+                <rect x="24" y="42" width="46" height="76" rx="7" fill="none" stroke="#83ff8a" stroke-width="2" />
+                <rect x="31" y="50" width="32" height="52" rx="2" fill="#83ff8a" opacity="0.12" />
+                <circle cx="47" cy="110" r="2.5" fill="#83ff8a" />
+                <!-- TV -->
+                <rect x="204" y="34" width="72" height="52" rx="5" fill="none" stroke="#29adff" stroke-width="2" />
+                <rect x="211" y="41" width="58" height="38" rx="2" fill="#29adff" opacity="0.12" />
+                <line x1="240" y1="86" x2="240" y2="100" stroke="#29adff" stroke-width="2" />
+                <rect x="222" y="100" width="36" height="4" rx="2" fill="#29adff" />
+                <!-- link -->
+                <line x1="78" y1="80" x2="198" y2="80" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.35" />
+                <text x="138" y="70" fill="#ffffff" opacity="0.4" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Wi-Fi</text>
+                <!-- drifting cart -->
+                <g class="flow">
+                    <rect x="90" y="72" width="16" height="16" rx="2.5" fill="#ff77a8" />
+                    <rect x="93" y="75" width="10" height="7" rx="1" fill="#000000" opacity="0.35" />
+                </g>
+            </svg>
+            <figcaption class="mt-3 text-xs text-white/40 text-center">Carts stream from the phone to the TV over your local Wi-Fi</figcaption>
+        </figure>
+
+        <!-- ─────────────────────── Steps ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">Sending your carts</h2>
+
+        <h3 class="mt-6 text-sm font-bold tracking-wide text-[#29adff]">On the TV</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Open Pixl8 and select
+                <span class="text-white/80">"Receive carts from your phone/device"</span>. It sits at the
+                bottom of your Library, and also in Settings.</li>
+            <li>That screen shows the name your TV is visible as on the Wi-Fi. Leave it open. It only
+                accepts carts while it's on screen.</li>
+        </ol>
+
+        <h3 class="mt-8 text-sm font-bold tracking-wide text-[#83ff8a]">On the phone</h3>
+        <ol class="mt-3 ml-6 space-y-2 list-decimal text-white/60 marker:text-white/40 leading-relaxed" start="3">
+            <li>In your Library, <span class="text-white/80">long-press</span> a game, or use multi-select to
+                grab several. Only your own library games can be sent; the built-in Featured games can't.</li>
+            <li>Tap <span class="text-white/80">"Send to TV"</span>.</li>
+            <li>The phone searches your Wi-Fi and lists the TVs waiting on their Receive screen. Pick yours
+                (shown with a <span class="text-white/80">📺</span> next to its name).</li>
+            <li>The carts stream over and land in the TV's Library, ready to play. The TV shows a running
+                count as they arrive.</li>
+        </ol>
+
+        <div class="mt-6 border-l-2 border-white/20 pl-4 text-white/60 leading-relaxed space-y-3">
+            <p>
+                <span class="text-white/80">Multi-cart games are sent whole.</span> Sending one brings the
+                main cart plus every sub-game in its <code class="text-white/80">.multicarts</code> folder, so
+                collections arrive complete and ready to run.
+                <a href="multicarts.html" class="text-white/50 underline decoration-white/25 hover:decoration-white hover:text-white/80">(about multi-carts)</a>
+            </p>
+            <p>
+                <span class="text-white/80">Re-send any time.</span> Games already on the TV (matched by name
+                and size) are skipped, so sending again only copies what's new. The result message notes how
+                many were already there.
+            </p>
+        </div>
+
+        <!-- ─────────────────────── Troubleshooting ─────────────────────── -->
+        <h2 class="mt-16 text-2xl font-semibold">If the phone doesn't find the TV</h2>
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li>Check the <span class="text-white/80">Receive carts</span> screen is still open on the TV. It stops advertising the moment you leave it.</li>
+            <li>Confirm both devices are on the <span class="text-white/80">same Wi-Fi</span>, not one on Wi-Fi and one on mobile data, and not a guest network that blocks device-to-device traffic.</li>
+            <li>Some routers block this kind of local discovery. If yours does, a normal home network or a phone hotspot both devices join will get them talking.</li>
+        </ul>
+
+        <p class="mt-16 text-xs text-white/30 leading-relaxed">
+            New to Pixl8 generally? The
+            <a href="faq.html" class="text-white/60 underline decoration-white/30 hover:decoration-white/60">FAQ</a>
+            and the other
+            <a href="how-to.html" class="text-white/60 underline decoration-white/30 hover:decoration-white/60">how-tos</a>
+            cover the phone app. Spot something that should be on this page?
+            Open an
+            <a href="https://github.com/Macs75/pixl8/issues"
+               class="text-white/60 underline decoration-white/30 hover:decoration-white/60">issue
+            on GitHub</a>.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                VAT BE0713473107 ·
+                <a class="em hover:text-white/70" href="#">our contact email</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+            <p class="mt-1.5 text-white/30">
+                Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of Lexaloffle Games LLP.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Email obfuscation — see index.html for the rationale.
+        (function () {
+            var EMAIL = atob('==QZi5yctFWZyRWZk92YAhDb4lGc'.split('').reverse().join(''));
+            document.querySelectorAll('a.em').forEach(function (a) {
+                a.href = 'mailto:' + EMAIL;
+                a.textContent = EMAIL;
+            });
+        })();
+    </script>
+</body>
+</html>
