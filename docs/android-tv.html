@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixl8 on Android TV — Pixl8</title>
     <meta name="description"
-          content="How to get your PICO-8 library onto Android TV with Pixl8: sending carts from your phone across your local Wi-Fi, including whole multi-cart games." />
+          content="How to get your PICO-8 library onto Android TV with Pixl8: sending carts from your phone across your local Wi-Fi, plus the full TV-remote control mapping (numbers and colour keys included)." />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:title" content="Pixl8 on Android TV" />
@@ -133,6 +133,40 @@
                 many were already there.
             </p>
         </div>
+
+        <!-- ─────────────────────── Remote controls ─────────────────────── -->
+        <h2 id="remote" class="mt-16 text-2xl font-semibold">Playing with the TV remote</h2>
+        <p class="mt-3 text-white/60 leading-relaxed">
+            A gamepad or a keyboard gives the best experience, but every game is
+            playable with the plain remote too:
+        </p>
+        <ul class="mt-4 ml-6 space-y-1.5 list-disc text-white/60 marker:text-white/40 leading-relaxed">
+            <li><span class="text-white/80">D-pad</span>: move (and browse the app)</li>
+            <li><span class="text-white/80">OK</span>: the O button; in the app it opens whatever is selected</li>
+            <li><span class="text-white/80">Pause</span>: the PICO-8 pause menu (save, load, quit)</li>
+            <li><span class="text-white/80">Play</span>: the Pixl8 menu (shaders, screenshots, and more)</li>
+            <li><span class="text-white/80">Back</span>: leave the game, or go back a screen in the app</li>
+        </ul>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            No Play or Pause key on your remote? The
+            <span class="text-white/80">number keys</span> and the four
+            <span class="text-white/80">colour keys</span> found on many remotes work as
+            alternatives, and the pairing is easy to remember because each number shares
+            its colour with the matching key:
+        </p>
+        <figure class="mt-6 rounded-lg border border-white/10 bg-white/[0.02] p-6">
+            <img src="assets/tv-remote-controls.png" alt="TV remote diagram: OK, 2 or the green key press O; 1 or the red key press X; Pause, 0 or the yellow key open the PICO-8 pause menu; Play, 9 or the blue key open the Pixl8 menu"
+                 class="mx-auto max-w-full [image-rendering:auto]" style="max-height:420px" />
+            <figcaption class="mt-3 text-xs text-white/40 text-center">
+                O and X, the pause menu, and the Pixl8 menu, from the numbers or the colour keys
+            </figcaption>
+        </figure>
+        <p class="mt-4 text-white/60 leading-relaxed">
+            The same keys work while browsing the app: <span class="text-white/80">2</span> or
+            <span class="text-white/80">green</span> confirm like OK, and
+            <span class="text-white/80">1</span> or <span class="text-white/80">red</span> go
+            back. The first time you play with the remote, Pixl8 shows this mapping on screen.
+        </p>
 
         <!-- ─────────────────────── Troubleshooting ─────────────────────── -->
         <h2 class="mt-16 text-2xl font-semibold">If the phone doesn't find the TV</h2>
