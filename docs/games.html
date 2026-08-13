@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games — Pixl8</title>
+    <meta name="description" content="A showcase of the PICO-8 games featured in Pixl8, the native PICO-8 player for Android. Watch gameplay clips of every bundled cart." />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:title" content="Pixl8 — featured games" />
+    <meta property="og:description" content="Gameplay clips of every PICO-8 game bundled with Pixl8." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pixl8.dev/games.html" />
+    <meta property="og:image" content="https://pixl8.dev/assets/pixl8-logo.svg" />
+    <meta property="og:site_name" content="Pixl8" />
+
+    <link rel="canonical" href="https://pixl8.dev/games.html" />
+    <link rel="me" href="https://bsky.app/profile/macs.eurosky.social" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/pixl8-logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="reel.css" />
+
+    <style>
+        html, body { background: #000; }
+        body       { font-family: 'JetBrains Mono', ui-monospace, monospace; color: #fff; }
+        ::selection { background: #ffec27; color: #000; }
+        .tag  { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-white/5">
+        <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/pixl8-logo.svg" alt=""
+                     width="32" height="32"
+                     class="w-8 h-8 [image-rendering:pixelated]" />
+                <span class="text-base font-bold group-hover:text-white/70 transition-colors">Pixl8</span>
+            </a>
+            <a href="index.html" class="text-xs text-white/40 hover:text-white/70 transition-colors">← Home</a>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-14">
+        <h1 class="text-4xl font-bold tracking-tight">Featured games</h1>
+        <p class="mt-3 text-white/50 max-w-2xl">
+            The PICO-8 carts bundled with Pixl8, each with its author's permission. Sit back and
+            watch the reel, or pick any game below to jump straight to it.
+        </p>
+
+        <!-- The auto-advancing reel. reel.js mounts here. -->
+        <div class="mt-10 mb-4" data-reel></div>
+        <p class="text-center text-xs text-white/30" id="reel-hint">
+            Plays muted, tap the speaker for sound.
+        </p>
+
+        <!-- Full library grid. Built from PIXL8_GAMES by the script below. -->
+        <div class="mt-14 flex items-baseline justify-between border-b border-white/10 pb-2">
+            <h2 class="text-lg font-bold">All games <span class="text-white/40 text-sm" id="game-total"></span></h2>
+        </div>
+        <div class="game-grid mt-6" id="game-grid" role="list"></div>
+
+        <p class="mt-12 text-xs text-white/30 leading-relaxed max-w-2xl">
+            Games are shown with their authors' permission. Titles and authors as credited on the
+            Lexaloffle BBS. Pixl8 is not affiliated with Lexaloffle. PICO-8® is a trademark of
+            Lexaloffle Games LLP.
+        </p>
+    </main>
+
+    <footer class="py-6 px-6 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center text-xs text-white/40 leading-relaxed">
+            <p>
+                © <span id="year"></span> CodeDreams BV ·
+                <a href="index.html" class="hover:text-white/70">Home</a> ·
+                <a href="privacy.html" class="hover:text-white/70">Privacy</a> ·
+                <a href="terms.html" class="hover:text-white/70">Terms</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="games-data.js"></script>
+    <script>
+        // Build the grid from the shared game list, then let reel.js drive it.
+        (function () {
+            var games = window.PIXL8_GAMES || [];
+            var grid = document.getElementById("game-grid");
+            document.getElementById("game-total").textContent = "(" + games.length + ")";
+            var cards = [];
+            games.forEach(function (g, i) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.className = "game-card";
+                b.setAttribute("role", "listitem");
+                var base = g.file.replace(/\.mp4$/, "");
+                b.innerHTML =
+                    '<span class="thumb">' +
+                        '<span class="layer poster" style="background-image:url(games/posters/' + base + '.jpg)"></span>' +
+                        '<span class="layer label" style="background-image:url(games/labels/' + base + '.png)"></span>' +
+                    '</span>' +
+                    '<span class="info"><span class="g-title"></span>' +
+                    '<span class="g-author"></span></span>';
+                b.querySelector(".g-title").textContent = g.title;
+                b.querySelector(".g-author").textContent = g.author ? "by " + g.author : "";
+                // Stagger each card so the flips never sync: random start offset
+                // and a slightly different period, giving the video-wall ripple.
+                var lbl = b.querySelector(".label");
+                lbl.style.animationDelay = (-Math.random() * 9).toFixed(2) + "s";
+                lbl.style.animationDuration = (8 + Math.random() * 3.5).toFixed(2) + "s";
+                b.addEventListener("click", function () {
+                    if (window.pixl8Reel) window.pixl8Reel.play(i);
+                });
+                grid.appendChild(b);
+                cards.push(b);
+            });
+            // Highlight the card matching whatever the reel is showing.
+            window.pixl8ReelSync = function (idx) {
+                cards.forEach(function (c, i) { c.setAttribute("aria-current", String(i === idx)); });
+            };
+            document.getElementById("year").textContent = new Date().getFullYear();
+        })();
+    </script>
+    <script src="reel.js"></script>
+</body>
+</html>

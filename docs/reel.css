@@ -1,0 +1,157 @@
+/* Pixl8 game reel — a PICO-8 "console screen" that auto-advances through
+   the featured gameplay clips. Shared by index.html and games.html. */
+
+:root {
+  --p8-bg:   #0c0a14;
+  --p8-ink:  #fff1e8;
+  --p8-pink: #ff77a8;
+  --p8-cyan: #29adff;
+  --p8-yellow:#ffec27;
+  --p8-green:#83ff8a;
+  --p8-muted:#ab9bc0;
+}
+
+.reel { width: 100%; max-width: 460px; margin: 0 auto; }
+
+/* The screen: a square CRT-ish bezel around the 512x512 clip. */
+.reel-screen {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 0 6px #05040a,
+    0 0 0 7px rgba(255,255,255,.05),
+    0 26px 60px -20px rgba(41,173,255,.35),
+    0 10px 30px -10px rgba(0,0,0,.8);
+}
+/* The sliding layer: video + its overlays move together on prev/next while
+   the bezel stays put. reel.js drives its transform/opacity. */
+.reel-stage { position: absolute; inset: 0; will-change: transform, opacity; }
+
+.reel-screen video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  display: block;
+  background: #000;
+}
+
+/* Faint scanlines + vignette so flat pixel art reads as a screen.
+   On the stage (z-index 1) so it sits over the video but under the labels. */
+.reel-stage::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.16) 3px, rgba(0,0,0,0) 4px),
+    radial-gradient(120% 120% at 50% 50%, rgba(0,0,0,0) 62%, rgba(0,0,0,.45) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Title / author card. Sits over the bottom; big during the pre-roll pause,
+   shrinks to a corner tag while the clip plays. */
+.reel-meta {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 34px 18px 16px;
+  background: linear-gradient(to top, rgba(5,4,10,.92) 0%, rgba(5,4,10,.7) 45%, rgba(5,4,10,0) 100%);
+  transition: opacity .5s ease, transform .5s ease;
+  z-index: 2;
+}
+.reel-title {
+  font-weight: 700; color: var(--p8-ink);
+  font-size: clamp(1.05rem, 4.5vw, 1.5rem); line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0,0,0,.7);
+}
+.reel-author { margin-top: 4px; color: var(--p8-cyan); font-size: .8rem; }
+.reel-author b { color: var(--p8-ink); font-weight: 500; }
+
+/* Playing state: fade the big card down to a subtle bottom strip. */
+.reel[data-state="playing"] .reel-meta { opacity: .0; }
+.reel[data-state="playing"]:hover .reel-meta { opacity: 1; }
+.reel[data-state="preroll"] .reel-meta,
+.reel[data-state="postroll"] .reel-meta { opacity: 1; }
+
+/* "PAUSED" / pre-roll pulse chip, top-left. */
+.reel-status {
+  position: absolute; top: 12px; left: 12px; z-index: 3;
+  font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
+  color: #05040a; background: var(--p8-yellow);
+  padding: 3px 7px; border-radius: 4px; font-weight: 700;
+  opacity: 0; transition: opacity .3s;
+}
+.reel[data-state="preroll"] .reel-status,
+.reel[data-state="postroll"] .reel-status { opacity: 1; }
+
+/* Progress counter, top-right. */
+.reel-count {
+  position: absolute; top: 12px; right: 12px; z-index: 3;
+  font-size: .62rem; letter-spacing: .1em; color: var(--p8-ink);
+  background: rgba(5,4,10,.6); padding: 3px 7px; border-radius: 4px;
+}
+
+/* Controls row under the screen. */
+.reel-controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; }
+.reel-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.8);
+  background: transparent; cursor: pointer;
+  padding: 7px 12px; font: inherit; font-size: .78rem; border-radius: 0;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.reel-btn:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+.reel-btn[aria-pressed="false"] { border-color: var(--p8-pink); color: var(--p8-pink); }
+.reel-btn svg { width: 13px; height: 13px; }
+
+/* Thin progress bar hugging the screen bottom. */
+.reel-progress { position: absolute; left: 0; bottom: 0; height: 3px; z-index: 3;
+  background: var(--p8-pink); width: 0%; transition: width .1s linear; }
+
+/* BBS link for the current cart, under the controls. */
+.reel-bbs {
+  display: block; text-align: center; margin-top: 12px;
+  font-size: .78rem; color: var(--p8-cyan); text-decoration: none;
+  transition: color .15s;
+}
+.reel-bbs:hover { color: var(--p8-ink); text-decoration: underline; text-underline-offset: 3px; }
+.reel-bbs span { color: var(--p8-muted); }
+
+/* ---------- games.html grid ---------- */
+.game-grid {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+.game-card {
+  text-align: left; cursor: pointer; background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 12px; overflow: hidden;
+  padding: 5px; color: inherit; font: inherit;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.game-card:hover { border-color: var(--p8-cyan); transform: translateY(-2px); background: rgba(41,173,255,.06); }
+.game-card[aria-current="true"] { border-color: var(--p8-pink); }
+.game-card .thumb { position: relative; aspect-ratio: 1/1; width: 100%; overflow: hidden;
+  border-radius: 7px; background: #000; display: block; }
+/* Two stacked layers: the gameplay poster underneath, the cart label on top.
+   The label crossfades in/out (tvflip); each card gets a random delay + slightly
+   different duration in JS, so the grid ripples like a wall of little screens. */
+.game-card .thumb .layer { position: absolute; inset: 0;
+  background: #000 center/cover no-repeat; image-rendering: pixelated; }
+.game-card .thumb .label { animation: tvflip 9s ease-in-out infinite; }
+@keyframes tvflip {
+  0%, 42%  { opacity: 1; }   /* cart title label */
+  50%, 92% { opacity: 0; }   /* gameplay frame */
+  100%     { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-card .thumb .label { animation: none; opacity: 0; }
+}
+.game-card .info { padding: 8px 5px 4px; }
+.game-card .g-title { display: block; font-weight: 700; font-size: .82rem; color: var(--p8-ink); line-height: 1.2;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.game-card .g-author { display: block; font-size: .68rem; color: var(--p8-muted); margin-top: 3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-meta, .reel-status, .reel-progress, .game-card { transition: none; }
+}

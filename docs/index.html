@@ -125,6 +125,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="reel.css" />
 </head>
 
 <body class="min-h-screen flex flex-col antialiased">
@@ -255,6 +256,13 @@
                  external (↗) links below, so the row doesn't get too wide. -->
             <div class="word-in word-in-4 mt-4 flex flex-col items-center gap-4">
                 <div class="flex flex-wrap items-center justify-center gap-3">
+                    <a href="games.html"
+                       class="inline-flex items-center justify-center px-5 py-2.5
+                              border border-white/20 text-white/80
+                              hover:border-white/50 hover:text-white
+                              transition-colors text-sm">
+                        Games
+                    </a>
                     <a href="faq.html"
                        class="inline-flex items-center justify-center px-5 py-2.5
                               border border-white/20 text-white/80
@@ -305,6 +313,27 @@
             </div>
         </div>
     </main>
+
+    <!-- Featured-games reel. A single auto-advancing clip (random start,
+         paused on the title, then plays, then the next) as a taste of the
+         library; the button leads to the full showcase + grid. -->
+    <section class="px-6 pb-24 pt-6 border-t border-white/5">
+        <div class="max-w-md mx-auto text-center">
+            <h2 class="tag text-white/40 mb-7">Featured games</h2>
+            <div data-reel></div>
+            <p class="mt-4 text-xs text-white/25">Plays muted — tap the speaker for sound.</p>
+            <div class="mt-8">
+                <a href="games.html"
+                   class="inline-flex items-center justify-center gap-2 px-6 py-3
+                          border border-white/20 text-white/80
+                          hover:border-white/50 hover:text-white
+                          transition-colors text-sm">
+                    Explore all <span class="text-white font-semibold" id="explore-count">47</span> games
+                    <span aria-hidden="true" class="text-white/40">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Compact footer: one line, single small "not affiliated" disclaimer. -->
     <footer class="py-6 px-6 border-t border-white/5">
@@ -360,6 +389,17 @@
                 a.href = 'mailto:' + EMAIL;
                 a.textContent = EMAIL;
             });
+        })();
+    </script>
+
+    <!-- Featured-games reel (mounts into [data-reel] above). -->
+    <script src="games-data.js"></script>
+    <script src="reel.js"></script>
+    <script>
+        // Keep the "Explore all N games" count in sync with the game list.
+        (function () {
+            var el = document.getElementById("explore-count");
+            if (el && window.PIXL8_GAMES) el.textContent = window.PIXL8_GAMES.length;
         })();
     </script>
 </body>
