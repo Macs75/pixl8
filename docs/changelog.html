@@ -55,19 +55,58 @@
         <p class="mt-3 text-white/50">What's new in each release of Pixl8.</p>
 
         <!-- ============================ 1.6.6 ============================ -->
-        <!-- DRAFT, not released yet. Accumulates entries for the next app
-             release; move the "latest" tag up from 1.6.5 when it ships. -->
         <section class="mt-14">
             <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
                 <h2 class="text-2xl font-bold">1.6.6</h2>
+                <span class="tag text-[#ff77a8]">latest</span>
             </div>
 
             <h3 class="mt-7 text-sm font-bold tracking-wide text-[#83ff8a]">NEW</h3>
             <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li><strong class="text-white">Two new games:</strong>
+                    <span class="game">Driftmania</span> by MaxBize, and a
+                    <span class="game">Woodworm+</span> mod by bigmonkeynads, built on the original by Spratt.</li>
+                <li><strong class="text-white">Take screenshots from the in-game menu.</strong> No setup
+                    needed: open the layout menu during play and tap Screenshot. Shots are kept per game, and
+                    you can browse them from Manage screenshots.</li>
                 <li><strong class="text-white">Show or hide the on-screen controls.</strong> A new toggle in
                     the in-game menu lets you hide the touch controls when you don't need them. They also hide
                     automatically when you connect a controller and reappear when you disconnect it, and your
                     manual choice is remembered.</li>
+            </ul>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#29adff]">CHANGED</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li><strong class="text-white">Games now fill the whole screen.</strong> The navigation bar is
+                    hidden during play and the layout respects display cutouts, so notched phones keep the
+                    image clear of the camera hole. On 1:1 displays the game uses the full panel.</li>
+                <li><strong class="text-white">The screen stays awake while you play.</strong> Playing with a
+                    controller, music carts, and multiplayer sessions no longer hit the system screen timeout.</li>
+                <li><strong class="text-white">Faster controller navigation in the launcher.</strong> Pressing
+                    up from the top tabs jumps straight to the bottom bar, and down from the bar jumps back
+                    (portrait).</li>
+            </ul>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#ffec27]">FIXED</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li><strong class="text-white">Local multiplayer game starts.</strong> An intermittent desync
+                    right at the start of a match is fixed. Both devices now begin from an identical state,
+                    whatever was on either screen before.
+                    <a href="multiplayer.html" class="text-white/50 underline decoration-white/25 hover:decoration-white hover:text-white/80">(about multiplayer)</a></li>
+                <li><strong class="text-white">Hosting keeps the game's details.</strong> Hosting on your
+                    local network from the Recent or Favourites tab now sends the title and author along with
+                    the cart, so the joining player sees proper details instead of a raw filename.</li>
+                <li><strong class="text-white">Joining no longer re-downloads a game you own.</strong> If an
+                    identical copy is already in your library, it plays directly.</li>
+                <li><strong class="text-white">Correct save-state import count.</strong> Thumbnails are no
+                    longer counted as save states in the overwrite and result messages.</li>
+                <li><strong class="text-white">Cleaner multiplayer lobby.</strong> The search field only
+                    appears when more than one game is listed, and hosting is now a single row: your last
+                    hosted game is remembered and shown with its cover art, one tap hosts it again, and the
+                    pencil picks a different game. Long-press the row to forget the saved game.</li>
+                <li><strong class="text-white">Developer console.</strong> Typing <code class="text-white/80">exit</code>
+                    or <code class="text-white/80">shutdown</code> in the console now leaves the game cleanly
+                    and returns to your library. Before, the command was ignored.</li>
             </ul>
         </section>
 
@@ -75,7 +114,6 @@
         <section class="mt-14">
             <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
                 <h2 class="text-2xl font-bold">1.6.5</h2>
-                <span class="tag text-[#ff77a8]">latest</span>
             </div>
 
             <h3 class="mt-7 text-sm font-bold tracking-wide text-[#83ff8a]">NEW</h3>
