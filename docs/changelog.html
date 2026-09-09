@@ -60,13 +60,37 @@
         <h1 class="text-4xl font-bold">Changelog</h1>
         <p class="mt-3 text-white/50">What's new in each release of Pixl8.</p>
 
+        <!-- ============================ 1.6.8 ============================ -->
+        <section class="mt-14">
+            <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
+                <h2 class="text-2xl font-bold">1.6.8</h2>
+                <span class="plat plat-ios">iOS</span>
+                <span class="plat plat-android">Android</span>
+                <span class="tag text-[#ff77a8]">latest</span>
+            </div>
+
+            <h3 class="mt-7 text-sm font-bold tracking-wide text-[#ffec27]">FIXED</h3>
+            <ul class="mt-3 space-y-3 text-white/70 leading-relaxed list-disc pl-5 marker:text-white/25">
+                <li><strong class="text-white">The left analog stick now controls games and menus.</strong>
+                    On a connected controller, the left stick now works everywhere the d-pad does: moving your
+                    character in games, navigating the launcher, and changing options in the in-game pause menu
+                    (such as the save-state slot). Before, some games and menus only responded to the d-pad. On
+                    iOS the cursor speed in games that use the pointer now follows how far you push the stick.</li>
+                <li><strong class="text-white">Broader controller compatibility (iOS).</strong> Pixl8 now
+                    recognizes more controllers, including ones that have only a d-pad and buttons with no
+                    analog sticks. Some of these were not picked up before.</li>
+                <li><strong class="text-white">Stability fixes.</strong> Fixed several rare crashes:
+                    loading a game's cover art or opening a game on low-memory devices, and opening some
+                    links or starting a shake-to-connect session on certain phones and TVs.</li>
+            </ul>
+        </section>
+
         <!-- ============================ 1.6.7 ============================ -->
         <section class="mt-14">
             <div class="flex items-baseline gap-3 border-b border-white/10 pb-2">
                 <h2 class="text-2xl font-bold">1.6.7</h2>
                 <span class="plat plat-ios">iOS</span>
                 <span class="plat plat-android">Android</span>
-                <span class="tag text-[#ff77a8]">latest</span>
             </div>
 
             <h3 class="mt-7 text-sm font-bold tracking-wide text-[#83ff8a]">NEW</h3>
