@@ -87,6 +87,12 @@ window.PIXL8_GAMES = [
     "bbs": "cotlk"
   },
   {
+    "file": "driftmania.mp4",
+    "title": "Driftmania",
+    "author": "MaxBize",
+    "bbs": "driftmania"
+  },
+  {
     "file": "duckollector.mp4",
     "title": "Duckollector",
     "author": "ghettobastler",
@@ -112,9 +118,15 @@ window.PIXL8_GAMES = [
   },
   {
     "file": "guncho.mp4",
-    "title": "guncho",
+    "title": "Guncho",
     "author": "spoike",
     "bbs": "guncho"
+  },
+  {
+    "file": "harold.mp4",
+    "title": "Harold's Bad Day",
+    "author": "biovoid",
+    "bbs": "harold"
   },
   {
     "file": "highstakes.mp4",
@@ -147,6 +159,12 @@ window.PIXL8_GAMES = [
     "bbs": "marble_merger"
   },
   {
+    "file": "binaryeye_neath.mp4",
+    "title": "Neath",
+    "author": "binaryeye",
+    "bbs": "binaryeye_neath"
+  },
+  {
     "file": "nono_cdiffin.mp4",
     "title": "No-no, No-no, Yes!",
     "author": "c.diffin",
@@ -172,7 +190,7 @@ window.PIXL8_GAMES = [
   },
   {
     "file": "picokaiju.mp4",
-    "title": "picokaiju",
+    "title": "Picokaiju",
     "author": "spoike",
     "bbs": "picokaiju"
   },
@@ -225,6 +243,12 @@ window.PIXL8_GAMES = [
     "bbs": "snekburd"
   },
   {
+    "file": "sokoblox.mp4",
+    "title": "Sokoblox",
+    "author": "codeAtorium",
+    "bbs": "sokoblox"
+  },
+  {
     "file": "spaceman8.mp4",
     "title": "Spaceman 8",
     "author": "kometbomb",
@@ -244,7 +268,7 @@ window.PIXL8_GAMES = [
   },
   {
     "file": "swopper.mp4",
-    "title": "swopper",
+    "title": "Swopper",
     "author": "4EyedIgby",
     "bbs": "swopper"
   },
@@ -273,6 +297,18 @@ window.PIXL8_GAMES = [
     "bbs": "umbra_demo"
   },
   {
+    "file": "woodworm.mp4",
+    "title": "Woodworm",
+    "author": "spratt",
+    "bbs": "woodworm"
+  },
+  {
+    "file": "woodworm_plus_mod.mp4",
+    "title": "Woodworm+",
+    "author": "bigmonkeynads",
+    "bbs": "woodworm_plus_mod"
+  },
+  {
     "file": "wormnomnom.mp4",
     "title": "Worm Nom Nom",
     "author": "kometbomb",
@@ -283,5 +319,11 @@ window.PIXL8_GAMES = [
     "title": "Yet Another Bombsweeper",
     "author": "spoike",
     "bbs": "spoikemines"
+  },
+  {
+    "file": "yet_another_pico_tetris.mp4",
+    "title": "Yet Another Pico Tetris 1.0",
+    "author": "jonckjunior",
+    "bbs": "yet_another_pico_tetris"
   }
 ];
